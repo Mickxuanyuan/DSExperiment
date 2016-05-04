@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hpu.fyx.model.User">
+    <resultMap type="User" id="studentMap">
+        <id column="id" property="id"/>
+        <result column="s_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="telephone" property="telephone"/>
+        <result column="email" property="email"/>
+        <result column="major_name" property="majorName"/>
+    </resultMap>
+    
+     <resultMap type="User" id="teacherMap">
+        <id column="id" property="id"/>
+        <result column="t_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="telephone" property="telephone"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <select id="getStudentById" parameterType="Map" resultMap="studentMap">
+        <![CDATA[
+            SELECT student.id, student.s_Id, student.username, student.telephone, student.email, newMajor.name AS major_name FROM student
+            	JOIN (SELECT id, name from major) AS newMajor
+            	ON student.major_id = newMajor.id
+            	WHERE s_id = #{userId} and password = #{password};
+        ]]>
+    </select>
+
+	<select id="getTeacherById" parameterType="Map" resultMap="teacherMap">
+        <![CDATA[
+            SELECT * FROM teacher WHERE t_id = #{userId} and password = #{password};
+        ]]>
+    </select>
+
+</mapper>
