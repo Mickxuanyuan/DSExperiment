@@ -3,14 +3,15 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="com.hpu.fyx.common.Constants" %>
 <%@ page import="com.hpu.fyx.utils.PathUtil" %>
+<%@ page import="com.hpu.fyx.utils.PropertyUtil" %>
 
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Login</title>
-    <link href="<%=request.getContextPath() %>/static/style/reset.css" rel="stylesheet" type="text/css">
-    <link href="<%=request.getContextPath() %>/static/style/login.css" rel="stylesheet" type="text/css">
+    <link href="<%=PropertyUtil.getStaticUrl()%>/style/reset.css" rel="stylesheet" type="text/css">
+    <link href="<%=PropertyUtil.getStaticUrl()%>/style/login.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/js/common.js"></script>
   </head>
   

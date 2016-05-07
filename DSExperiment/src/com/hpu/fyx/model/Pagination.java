@@ -5,30 +5,24 @@ import java.util.List;
 public class Pagination {
 	private List<?> record;//存储页面数据
 	
-	private int currentPage;//当前页面
+	private int currentPage = 1;//当前页面
 	private int totalRecord;//总记录数
-	private int pageSize=10;//每页的显示行数
-	private int totalPage ;//总的页数
+	private int pageSize = 10;//每页的显示行数
+	private int totalPage;//总的页数
 	private int startIndex;//每页开始的索引
+	private String searchContent;//搜索的内容
+	private int chapterId;
 	
-	private String url;
 	public Pagination() {
 		
 	}
-	public Pagination(int currentPage,int totalRecord) {
+	public Pagination(int currentPage, int totalRecord, int pageSize) {
 		this.currentPage = currentPage;
 		this.totalRecord = totalRecord;
+		this.pageSize = pageSize;
 		
-		totalPage = (totalRecord%pageSize==0)?(totalRecord/pageSize):(totalRecord/pageSize+1);
-		startIndex = (currentPage-1)*pageSize;
-	}
-	
-	public String getUrl() {
-		return url;
-	}
-	
-	public void setUrl(String url) {
-		this.url = url;
+		totalPage = (totalRecord % pageSize == 0) ? (totalRecord / pageSize) : (totalRecord / pageSize + 1);
+		startIndex = (currentPage-1) * pageSize;
 	}
 	
 	public List<?> getRecord() {
@@ -79,11 +73,18 @@ public class Pagination {
 		this.startIndex = startIndex;
 	}
 	
-	@Override
-	public String toString() {
-		return "Page [record=" + record + ", currentPage=" + currentPage
-				+ ", totalRecord=" + totalRecord + ", pageSize=" + pageSize
-				+ ", totalPage=" + totalPage + ", startIndex=" + startIndex
-				+ "]";
+	public String getSearchContent() {
+		return searchContent;
+	}
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+	
+	public int getChapterId() {
+		return chapterId;
+	}
+	
+	public void setChapterId(int chapterId) {
+		this.chapterId = chapterId;
 	}
 }

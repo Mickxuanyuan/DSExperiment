@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hpu.fyx.model.Question">
+    <resultMap type="Question" id="QuestionMap">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="chapterName" property="chapter"/>
+    </resultMap>
+
+    <select id="queryQuestion" parameterType="Map" resultMap="QuestionMap">
+        <![CDATA[
+            SELECT question.id, question.title, question.description, new_chapter.title AS chapterName FROM question
+ 	JOIN (SELECT id, title FROM chapter WHERE id = ${chapterId}) AS new_chapter
+	WHERE question.chapter_id = ${chapterId} and question.title like concat(concat('%',#{searchContent}),'%') limit ${startIndex}, ${pageSize};
+        ]]>
+    </select>
+    
+    <select id="getQuestionCount" resultType="int" parameterType="map">
+        <![CDATA[
+            SELECT count(*) AS questionCount FROM question WHERE chapter_id = ${chapterId} and title like concat(concat('%',#{searchContent}),'%');
+        ]]>
+    </select>
+</mapper>

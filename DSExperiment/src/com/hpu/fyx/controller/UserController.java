@@ -21,7 +21,7 @@ import com.hpu.fyx.service.UserService;
 public class UserController extends BaseController {
 	
 	private final String LOGIN_JSP = "login";
-	private final String BOOK_MYBOOK_PAGE = "book/mybook";
+	private final String QUESTION_LIST_PAGE = "student/questionList";
 	
 	@Autowired
     private UserService userService;
@@ -51,8 +51,10 @@ public class UserController extends BaseController {
 	
 	        if (user.getUserRole() == 2)
 	        {
-	        	redirectView = this.getRedirectView(BOOK_MYBOOK_PAGE);
+	        	//学生
+	        	redirectView = this.getRedirectView(QUESTION_LIST_PAGE);
 	        } else {
+	        	//老师
 	        	redirectView = this.getRedirectView("book/mybook1");
 	        }
 	                                                         

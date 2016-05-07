@@ -51,6 +51,7 @@
     </bean>
     
     <bean id="userDao" class="com.hpu.fyx.daoImpl.UserDaoImpl" parent="baseDao" />
+    <bean id="studentDao" class="com.hpu.fyx.daoImpl.StudentDaoImpl" parent="baseDao"/>
    <!--  <bean id="bookDao" class="com.zhengmenbb.book.dao.mybatis.BookDaoImpl" parent="baseDao"/>
     <bean id="userDao" class="com.zhengmenbb.book.dao.mybatis.UserDaoImpl" parent="baseDao" />
     <bean id="categoryDao" class="com.zhengmenbb.book.dao.mybatis.CategoryDaoImpl" parent="baseDao" />
@@ -82,8 +83,16 @@
        <property name="userDao" ref="userDao" />
     </bean>
     
+     <bean id="studentService" class="com.hpu.fyx.serviceImpl.StudentServiceImpl" >
+       <property name="studentDao" ref="studentDao" />
+    </bean>
+    
     <bean id="userController" class="com.hpu.fyx.controller.UserController" >
        <property name="userService" ref="userService" />
+    </bean>
+    
+    <bean id="studentController" class="com.hpu.fyx.controller.StudentController" >
+       <property name="studentService" ref="studentService" />
     </bean>
     
     <bean class="com.hpu.fyx.utils.SpringUtil"></bean>

@@ -3,7 +3,8 @@ package com.hpu.fyx.model;
 public class Question {
 	private Integer id;
 	private String title;
-	private String discription;
+	private String description;
+	private String chapter;
 	
 	public Integer getId() {
 		return id;
@@ -21,11 +22,19 @@ public class Question {
 		this.title = title;
 	}
 	
-	public String getDiscription() {
-		return discription;
+	public String getDescription() {
+		return description;
 	}
 	
-	public void setDiscription(String discription) {
-		this.discription = discription;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getChapter() {
+		return chapter;
+	}
+
+	public void setChapter(String chapter) {
+		this.chapter = chapter;
 	}
 }

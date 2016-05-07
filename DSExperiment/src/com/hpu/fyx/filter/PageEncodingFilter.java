@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class PageEncodingFilter implements Filter {
 
@@ -28,9 +29,9 @@ public class PageEncodingFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
             FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
-        System.out.println("request.getCharacterEncoding()==" + request.getCharacterEncoding());
+        HttpServletResponse response = (HttpServletResponse)servletResponse;
         request.setCharacterEncoding(encoding);
-
+        response.setContentType("application/json;charset=UTF-8");
         filterChain.doFilter(request, servletResponse);
 
     }

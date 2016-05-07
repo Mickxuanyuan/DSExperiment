@@ -16,7 +16,7 @@ public class Constants {
 //
     public static final String APP_URL_PREFIX = "page";
 //
-//    public static final String APP_URL_BOOK_PREFIX = "/page/book";
+    public static final String APP_URL_STUDENT_PREFIX = "/page/student";
     public static final String APP_URL_USER_PREFIX = "/page/user";
 
 }
