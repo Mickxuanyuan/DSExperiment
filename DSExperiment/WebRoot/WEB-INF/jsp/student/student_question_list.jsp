@@ -120,6 +120,16 @@
 		window.location.href = turnUrl;
 	}
 	
+	function runToQuestionList() {
+		var turnUrl = "<%=PathUtil.getFullPath("student/questionList")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function runToDailyTask() {
+		var turnUrl = "<%=PathUtil.getFullPath("student/dailyTask")%>";
+		window.location.href = turnUrl;
+	}
+	
 </script>
 </head>
 <body style="margin:0px;height: 760px;width:100%">
@@ -127,15 +137,18 @@
 	
 		<div class="header">
 			<a class="header_title">数据结构上机系统</a>
+			 <a href="<%=PathUtil.getFullPath("student/signIn")%>" onclick="alert('签到成功')" class="header_sign_in" style="right: 20px; top: 20px; position: absolute;font-family:Arial; font-size:14px; color:#FFFFFF" >
+			 	<img src="<%=PropertyUtil.getStaticUrl()%>/images/sign_in.png"/>
+			 </a>
 			<label class="header_logout">注销</label>
 			<label class="header_login_name">${user.username}</label>
 			<img class="header_img" src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>
 		
 		<div class="breadcrumb">
-			<div class="breadcrumb_question" onclick="initialColorBreadcrumb('breadcrumb_question')">问题列表</div>
-			<div class="breadcrumb_task" onclick="initialColorBreadcrumb('breadcrumb_task')">今日任务</div>
-			<div class="breadcrumb_home" onclick="initialColorBreadcrumb('breadcrumb_home')">主页</div>
+			<div class="breadcrumb_question" style="background:#D2DAE3;" onclick="runToQuestionList()">问题列表</div>
+			<div class="breadcrumb_task" onclick="runToDailyTask()">今日任务</div>
+			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
 		</div>
 		
 		<div class="center_main">
@@ -228,6 +241,7 @@
 						<select class="footer_select" name="pageSize" id="pageSize"
 							onchange="submitPageSize()" >
 							<option value="10">10</option>
+							<option value="20">20</option>
 							<option value="5">5</option>
 						</select>
 						

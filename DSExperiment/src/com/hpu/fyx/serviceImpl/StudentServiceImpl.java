@@ -1,7 +1,10 @@
 package com.hpu.fyx.serviceImpl;
 
+import java.util.List;
+
 import com.hpu.fyx.dao.StudentDao;
 import com.hpu.fyx.model.Pagination;
+import com.hpu.fyx.model.Question;
 import com.hpu.fyx.service.StudentService;
 
 public class StudentServiceImpl implements StudentService {
@@ -22,5 +25,19 @@ public class StudentServiceImpl implements StudentService {
 		
 		return newPagination;
 	}
-	
+
+	@Override
+	public List<Question> queryDailyTask(int userId) {
+		return studentDao.queryDailyTask(userId);
+	}
+
+	@Override
+	public int querySignIn(int userId) {
+		return studentDao.querySignIn(userId);
+	}
+
+	@Override
+	public void insertSignIn(int userId) {
+		studentDao.insertSignIn(userId);
+	}
 }

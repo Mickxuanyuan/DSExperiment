@@ -22,6 +22,9 @@ public class Pagination {
 		this.pageSize = pageSize;
 		
 		totalPage = (totalRecord % pageSize == 0) ? (totalRecord / pageSize) : (totalRecord / pageSize + 1);
+		if (totalPage == 0) {
+			totalPage = 1;
+		}
 		startIndex = (currentPage-1) * pageSize;
 	}
 	

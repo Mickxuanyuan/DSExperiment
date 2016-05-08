@@ -64,7 +64,7 @@
 	line-height: 40px;
 	position: absolute;
 	left: 20px;
-	background: #D2DAE3;
+	background: #ffffff;
 	font-family: Arial;
 	color: #2E4358;
 }
@@ -77,7 +77,7 @@
 	line-height: 40px;
 	position: absolute;
 	left: 311px;
-	background: #D2DAE3;
+	background: #ffffff;
 	font-family: Arial;
 	color: #2E4358;
 }
@@ -90,7 +90,7 @@
 	line-height: 40px;
 	position: absolute;
 	right: 50px;
-	background: #D2DAE3;
+	background: #ffffff;
 	font-family: Arial;
 	color: #2E4358;
 }
@@ -103,6 +103,7 @@
 	top: 150px;
 	background: #ffffff;
 	border-radius: 5px;
+	overflow: auto;
 }
 
 .main_left {
@@ -203,6 +204,7 @@
 .div_main_center_two {
 	width: 100%;
 	height: 300px;
+	overflow: auto;
 }
 
 .div_main_center_two1 {
@@ -258,7 +260,7 @@
 	height: 30px;
 	float: left;
 	position: absolute;
-	left: 750px;
+	left: 650px;
 	font-size: 12px;
 	font-family: Arial;
 	color: #oaoaoa;

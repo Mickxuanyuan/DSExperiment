@@ -42,15 +42,15 @@
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
-  <!-- <filter>
+  <filter>
     <filter-name>SessionFilter</filter-name>
-    <filter-class>com.zhengmenbb.book.filter.SessionFilter</filter-class>
+    <filter-class>com.hpu.fyx.filter.SessionFilter</filter-class>
     <init-param>
       <param-name>notNeedLoginPages</param-name>
-      <param-value>,page/user/login,page/book/test</param-value>
+      <param-value>,page/user/login</param-value>
     </init-param>
   </filter>
- -->
+
   <filter-mapping>
     <filter-name>AppContextFilter</filter-name>
     <url-pattern>/page/*</url-pattern>
@@ -60,10 +60,10 @@
     <filter-name>Encoding</filter-name>
     <url-pattern>/page/*</url-pattern>
   </filter-mapping>
-  <!-- <filter-mapping>
+  <filter-mapping>
     <filter-name>SessionFilter</filter-name>
     <url-pattern>/page/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
   
     <servlet>
        <servlet-name>springmvc</servlet-name>

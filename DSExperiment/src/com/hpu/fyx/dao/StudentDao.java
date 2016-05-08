@@ -9,4 +9,10 @@ public interface StudentDao {
 	public List<Question> queryQuestionList(Pagination pagination);
 	
 	public int queryQuestionListCount(Pagination pagination);
+	
+	public void insertSignIn(int userId);
+	
+	public List<Question> queryDailyTask(int userId);
+	
+	public int querySignIn(int userId);
 }

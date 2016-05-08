@@ -22,4 +22,27 @@
             SELECT count(*) AS questionCount FROM question WHERE chapter_id = ${chapterId} and title like concat(concat('%',#{searchContent}),'%');
         ]]>
     </select>
+    
+    <select id="getDailyTask" resultMap="QuestionMap" parameterType="int">
+        <![CDATA[
+            SELECT task.question_id AS id, newQuestion.question_title AS title, newQuestion.description, newQuestion.chapterName FROM task 
+            JOIN (SELECT question.id AS questionId, question.title AS question_title, question.description, chapter.title as chapterName FROM question 
+            JOIN chapter where chapter.id = question.chapter_id) 
+            AS newQuestion 
+            ON newQuestion.questionId = task.question_id 
+            WHERE task.task_time=curdate() AND task.student_id = #{id};
+        ]]>
+    </select>
+    
+     <select id="insertSignIn" resultType="int" parameterType="int">
+        <![CDATA[
+            INSERT INTO sign_in(student_id, sign_in_datetime, sign_in_status) VALUES (#{userId}, NOW(), 1);
+        ]]>
+    </select>
+    
+    <select id="querySignIn" resultType="int" parameterType="int">
+        <![CDATA[
+            SELECT count(*) FROM sign_in WHERE student_id = #{id} AND sign_in_datetime like concat(curdate(), '%');
+        ]]>
+    </select>
 </mapper>
