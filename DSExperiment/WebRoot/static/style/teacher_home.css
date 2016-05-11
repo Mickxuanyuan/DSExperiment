@@ -1,0 +1,226 @@
+@CHARSET "UTF-8";
+
+.breadcrumb_sign_in {
+	font-size: 25px;
+	width: 211px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	position: absolute;
+	right: 550px;
+	background: #D2DAE3;
+	font-family: Arial;
+	color: #2E4358;
+}
+
+.div_main_center_one_li11 {
+	width: 40px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	left: 120px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li21 {
+	width: 100px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	left: 270px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li31 {
+	width: 450px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	left: 440px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li41 {
+	width: 30px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	right: 120px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li51 {
+	width: 10px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	right: 70px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_two_li11 {
+	width: 10px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 70px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li21 {
+	width: 40px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 120px;
+	font-size: 12px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li31 {
+	overflow: hidden;
+	width: 200px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 220px;
+	font-size: 12px;
+	font-family: Arial;
+	color: #296793;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li41 {
+	overflow: hidden;
+	width: 450px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 440px;
+	font-size: 12px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li51 {
+	background: url(images/ICN_Edit_15x15.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	float: left;
+	position: absolute;
+	left: 908px;
+	top: 8px;
+}
+
+.div_main_center_two_li6 {
+	width: 10px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 970px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.delete {
+	width: 80px;
+	height: 30px;
+	position: absolute;
+	right: 35px;
+	top: 20px;
+	color: #2e4358;
+	background-color: #FFD400;
+	border-radius: 3px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.main_center {
+	width: 1309px;height:600px; position: absolute; left:20px;top:110px;background:#ffffff;border-radius: 5px;
+}
+
+.main_center_top {
+	position: absolute; left:20px;top:10px;
+}
+
+.edit_question_id_l {
+	width: 100px;height:30px;position: absolute; left:100px;top:0px;
+}
+
+.edit_question_id {
+	position: absolute; left:200px;top:0px;
+}
+
+.center_question {
+	position: absolute; left:300px;top:100px;
+}
+
+.edit_question_center_id {
+	position: absolute; left:150px;top:50px;
+}
+
+.edit_question_center_title_l {
+	position: absolute; left:0px; top:100px;
+}
+
+.edit_question_center_title {
+	position: absolute; left:150px;top:100px;
+}
+
+.edit_question_center_discription_l {
+	position: absolute; left:0px; top:150px;
+}
+
+.edit_question_center_ds {
+	width: 511px;height:280px;position: absolute; left:150px;top:150px;
+}
+
+.button_sure {
+	position:absolute; left:50px; top:470px;width: 160px;height: 30px;font-size: 15px;text-align:center; height:30px; line-height:30px;color: #ffffff;background-color: #5394CB;border-radius: 3px;cursor: pointer;
+}
+
+.button_cancel {
+	position:absolute; left:300px; top:470px;width: 160px;height: 30px;font-size: 15px;text-align:center; height:30px; line-height:30px;color: #ffffff;background-color: #5394CB;border-radius: 3px;cursor: pointer;
+}
+
+.edit_question_center_id_l {
+	position: absolute; left:0px; top:50px;
+}
+
+.chapter_select {
+	width:173px;height:21px;position: absolute; left:150px;top:0px;
+}

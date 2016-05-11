@@ -22,6 +22,7 @@ public class UserController extends BaseController {
 	
 	private final String LOGIN_JSP = "login";
 	private final String QUESTION_LIST_PAGE = "student/questionList";
+	private final String QUESTION_LIST_TEACHER_PAGE = "teacher/questionList";
 	
 	@Autowired
     private UserService userService;
@@ -55,7 +56,7 @@ public class UserController extends BaseController {
 	        	redirectView = this.getRedirectView(QUESTION_LIST_PAGE);
 	        } else {
 	        	//老师
-	        	redirectView = this.getRedirectView("book/mybook1");
+	        	redirectView = this.getRedirectView(QUESTION_LIST_TEACHER_PAGE);
 	        }
 	                                                         
 	        modelAndView.setView(redirectView);

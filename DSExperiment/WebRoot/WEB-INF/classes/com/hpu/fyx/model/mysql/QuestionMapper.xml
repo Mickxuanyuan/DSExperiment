@@ -7,8 +7,9 @@
         <result column="title" property="title"/>
         <result column="description" property="description"/>
         <result column="chapterName" property="chapter"/>
+        <result column="chapter_id" property="chapterId"/>
     </resultMap>
-
+    
     <select id="queryQuestion" parameterType="Map" resultMap="QuestionMap">
         <![CDATA[
             SELECT question.id, question.title, question.description, new_chapter.title AS chapterName FROM question
@@ -43,6 +44,24 @@
     <select id="querySignIn" resultType="int" parameterType="int">
         <![CDATA[
             SELECT count(*) FROM sign_in WHERE student_id = #{id} AND sign_in_datetime like concat(curdate(), '%');
+        ]]>
+    </select>
+    
+    <select id="showAQuestion" resultMap="QuestionMap" parameterType="int">
+        <![CDATA[
+            SELECT * FROM question WHERE id = #{questionId};
+        ]]>
+    </select>
+    
+    <select id="updateQuestion" resultType="int" parameterType="com.hpu.fyx.model.Question">
+        <![CDATA[
+            UPDATE question SET chapter_id = #{chapterId}, title = #{title}, description=#{description} WHERE id = #{id}; 
+        ]]>
+    </select>
+    
+     <select id="deleteQuestion" resultType="int" parameterType="int">
+        <![CDATA[
+            DELETE FROM question WHERE id = #{questionId} ;
         ]]>
     </select>
 </mapper>

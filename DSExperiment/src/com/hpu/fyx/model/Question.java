@@ -5,6 +5,7 @@ public class Question {
 	private String title;
 	private String description;
 	private String chapter;
+	private Integer chapterId;
 	
 	public Integer getId() {
 		return id;
@@ -36,5 +37,13 @@ public class Question {
 
 	public void setChapter(String chapter) {
 		this.chapter = chapter;
+	}
+
+	public Integer getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(Integer chapterId) {
+		this.chapterId = chapterId;
 	}
 }

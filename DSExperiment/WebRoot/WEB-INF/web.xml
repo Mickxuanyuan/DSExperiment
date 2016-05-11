@@ -71,7 +71,7 @@
        <init-param>
            <description>mvc.xml</description>
            <param-name>contextConfigLocation</param-name>
-           <param-value>classpath:book-mvc.xml</param-value>
+           <param-value>classpath:DS-mvc.xml</param-value>
        </init-param>
        <load-on-startup>1</load-on-startup>
     </servlet>
