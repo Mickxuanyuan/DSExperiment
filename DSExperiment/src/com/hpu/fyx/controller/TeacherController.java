@@ -1,5 +1,7 @@
 package com.hpu.fyx.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hpu.fyx.common.Constants;
+import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
 import com.hpu.fyx.model.User;
@@ -19,6 +22,9 @@ public class TeacherController extends BaseController{
 	private static final String QUESTION_LIST_JSP = "teacher/teacher_question_list";
 	private static final String QUESTION_SHOW_JSP = "teacher/teacher_edit_question";
 	private static final String QUESTION_LIST_PAGE = "teacher/questionList";
+	private static final String QUESTION_DETAIL_JSP = "teacher/teacher_question_detail";
+	private static final String QUESTION_ADD_JSP = "teacher/teacher_add_question";
+	private static final String QUESTION_RELEASE_TASK_JSP = "teacher/teacher_release_task";
 	
 	@Autowired
     private TeacherService teacherService;
@@ -65,6 +71,21 @@ public class TeacherController extends BaseController{
         return modelAndView;
     }
 	
+	@RequestMapping(value = "/detailQuestion", method = RequestMethod.GET)
+    public ModelAndView myDetailQuestion(
+                               @RequestParam(value = "questionId", defaultValue = "1") int questionId
+                               ) {
+		User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+
+        Question question = teacherService.updateQuestion(questionId);
+        modelAndView.addObject("question", question);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName(QUESTION_DETAIL_JSP);
+        
+        return modelAndView;
+    }
+	
 	@RequestMapping(value = "/submitEditResult", method = RequestMethod.POST)
     public ModelAndView submitEditResult(
     						   @RequestParam(value = "id", defaultValue = "1") int id,
@@ -95,4 +116,43 @@ public class TeacherController extends BaseController{
         return modelAndView;
     }
 	
+	@RequestMapping(value = "/submitAddQuestion", method = RequestMethod.POST)
+    public ModelAndView submitAddQuestion(
+                               @RequestParam(value = "options", defaultValue = "1") int option,
+                               @RequestParam(value = "questionTitle", defaultValue = "") String questionTitle,
+                               @RequestParam(value = "questionDescription", defaultValue = "") String questionDescription
+                               ) {
+        Question question = new Question();
+        question.setChapterId(option);
+        question.setTitle(questionTitle);
+        question.setDescription(questionDescription);
+        ModelAndView modelAndView = new ModelAndView();
+        teacherService.addQuestion(question);
+        modelAndView.setView(this.getRedirectView(QUESTION_LIST_PAGE));
+        
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/addQuestion", method = RequestMethod.GET)
+    public ModelAndView addQuestion() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(QUESTION_ADD_JSP);
+        
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/assignTask", method = RequestMethod.GET)
+    public ModelAndView assignTask(
+    							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId
+    							  ) {
+		User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        List<Major> majorList = teacherService.getMajorList(user.getId());
+        List<Question> questionList = teacherService.getAllQuestion(chapterId);
+        modelAndView.setViewName(QUESTION_RELEASE_TASK_JSP);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("majorList", majorList);
+        modelAndView.addObject("questionList", questionList);
+        return modelAndView;
+    }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hpu.fyx.model.Major">
+    <resultMap type="Major" id="majorMap">
+        <id column="id" property="id"/>
+        <result column="majorname" property="name"/>
+    </resultMap>
+    
+    <select id="getMajorList" resultMap="majorMap" parameterType="int">
+        <![CDATA[
+            SELECT newMajor.id, newMajor.name AS majorname FROM teacher_major 
+			JOIN(SELECT id, name FROM major)AS newMajor ON newMajor.id=teacher_major.major_id
+			WHERE teacher_major.teacher_id = #{userId};
+        ]]>
+    </select>
+</mapper>

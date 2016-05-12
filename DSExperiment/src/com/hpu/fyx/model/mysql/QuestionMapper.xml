@@ -64,4 +64,19 @@
             DELETE FROM question WHERE id = #{questionId} ;
         ]]>
     </select>
+    
+     <select id="addQuestion" resultType="int" parameterType="com.hpu.fyx.model.Question">
+        <![CDATA[
+            INSERT INTO question(chapter_id, title, description) VALUES (#{chapterId}, #{title}, #{description}); 
+        ]]>
+    </select>
+    
+     <select id="getAllQuestionList" resultMap="QuestionMap" parameterType="int">
+        <![CDATA[
+            SELECT question.id, question.title, question.description, new_chapter.title AS chapterName FROM question
+ 	JOIN (SELECT id, title FROM chapter WHERE id = #{chapterId}) AS new_chapter
+	WHERE question.chapter_id = #{chapterId}; 
+        ]]>
+    </select>
+    
 </mapper>

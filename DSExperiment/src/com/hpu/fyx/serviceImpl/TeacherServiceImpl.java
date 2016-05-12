@@ -1,6 +1,9 @@
 package com.hpu.fyx.serviceImpl;
 
+import java.util.List;
+
 import com.hpu.fyx.dao.TeacherDao;
+import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
 import com.hpu.fyx.service.TeacherService;
@@ -37,5 +40,20 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public void deleteQuestion(String[] ids) {
 		teacherDao.deleteQuestion(ids);
+	}
+
+	@Override
+	public void addQuestion(Question question) {
+		teacherDao.addQuestion(question);
+	}
+
+	@Override
+	public List<Major> getMajorList(int userId) {
+		return teacherDao.getMajorList(userId);
+	}
+
+	@Override
+	public List<Question> getAllQuestion(int chapterId) {
+		return teacherDao.getAllQuestionList(chapterId);
 	}
 }

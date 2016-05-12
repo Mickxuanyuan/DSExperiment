@@ -7,11 +7,13 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.hpu.fyx.dao.TeacherDao;
+import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
 
 public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	private static final String CLASS_NAME = Question.class.getName();
+	private static final String CLASS_NAME_Major = Major.class.getName();
 	
 	@Override
 	public List<Question> queryQuestionList(Pagination pagination) {
@@ -49,5 +51,20 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 			int questionId = Integer.parseInt(id);
 			getSqlSession().delete(CLASS_NAME + ".deleteQuestion", questionId);
 		}
+	}
+
+	@Override
+	public void addQuestion(Question question) {
+		getSqlSession().insert(CLASS_NAME + ".addQuestion", question);
+	}
+
+	@Override
+	public List<Major> getMajorList(int userId) {
+		return getSqlSession().selectList(CLASS_NAME_Major + ".getMajorList", userId);
+	}
+
+	@Override
+	public List<Question> getAllQuestionList(int chapterId) {
+		return getSqlSession().selectList(CLASS_NAME + ".getAllQuestionList", chapterId);
 	}
 }

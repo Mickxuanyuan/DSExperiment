@@ -116,6 +116,7 @@
 	color: #296793;
 	line-height: 30px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .div_main_center_two_li41 {
@@ -140,6 +141,7 @@
 	position: absolute;
 	left: 908px;
 	top: 8px;
+	cursor: pointer;
 }
 
 .div_main_center_two_li6 {
@@ -198,7 +200,7 @@
 }
 
 .edit_question_center_title {
-	position: absolute; left:150px;top:100px;
+	width:173px;height:21px; position: absolute; left:150px;top:100px;
 }
 
 .edit_question_center_discription_l {

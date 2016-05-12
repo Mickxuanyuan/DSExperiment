@@ -128,12 +128,22 @@
 	}
 	
 	function runToDailyTask() {
-		var turnUrl = "<%=PathUtil.getFullPath("teacher/dailyTask")%>";
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/assignTask")%>";
 		window.location.href = turnUrl;
 	}
 	
 	function submitEdit(id) {
 		var turnUrl = "<%=PathUtil.getFullPath("teacher/editQuestion")%>" + "?questionId=" + id;
+		window.location.href = turnUrl;
+	}
+	
+	function submitDetail(id) {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/detailQuestion")%>" + "?questionId=" + id;
+		window.location.href = turnUrl;
+	}
+	
+	function addQuestion() {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/addQuestion")%>";
 		window.location.href = turnUrl;
 	}
 	
@@ -178,8 +188,8 @@
 			<div class="main_left">
 				<hr class="main_hr"
 					style="width:180px; position:absolute; top:20px;margin:0px" />
-				<div class="main_left_elist"
-					style="font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #000000;position: absolute;top:21px">创建问题</div>
+				<div class="main_left_elist" onclick="addQuestion()"
+					style="cursor: pointer;font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #000000;position: absolute;top:21px">创建问题</div>
 				<hr style="width:180px; position:absolute; top:50px;margin:0px" />
 				<div class="1" onclick="initialColor('1')" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#2E4358;font-family:Arial;color: #ffffff;position: absolute;top:51px">第
 					1 章 绪论</div>
@@ -247,7 +257,7 @@
 							<ul style="list-style:none;margin:0px;">
 								<li class="div_main_center_two_li11"><%=i++%></li>
 								<li class="div_main_center_two_li21">Q<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${o.id}"/></li>
-								<li class="div_main_center_two_li31">${o.title}</li>
+								<li class="div_main_center_two_li31"  onclick="submitDetail('${o.id}')">${o.title}</li>
 								<li class="div_main_center_two_li41">${o.description}</li>
 								<li class="div_main_center_two_li51" onclick="submitEdit('${o.id}')"></li>
 								<li class="div_main_center_two_li6">
