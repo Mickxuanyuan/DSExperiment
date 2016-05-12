@@ -35,5 +35,10 @@
             SELECT * FROM teacher WHERE t_id = #{userId} and password = #{password};
         ]]>
     </select>
-
+    
+    <select id="getStudentIdsByMajorId" parameterType="int" resultMap="list">
+        <![CDATA[
+            SELECT id FROM student WHERE major_id = #{majorId};
+        ]]>
+    </select>
 </mapper>

@@ -14,6 +14,21 @@
 <link href="<%=PropertyUtil.getStaticUrl()%>/style/teacher_home.css" rel="stylesheet" type="text/css">
 
 <script>
+	window.onload = function() {
+		var obj= document.getElementsByTagName("option");
+		for(var i=0;i<obj.length;i++) {
+			if(obj[i].value=='${chapterId}' && obj[i].id=='chapter') {
+				obj[i].selected=true;
+			}
+		}
+		
+		for(var i=0;i<obj.length;i++) {
+			if(obj[i].value=='${major}' && obj[i].id=='major') {
+				obj[i].selected=true;
+			}
+		}
+	};
+
 	function submitPageSize() {
 		var pageSize = document.getElementById("pageSize").value;
 		var chapterId = document.getElementById("chapterId").value;
@@ -29,23 +44,10 @@
 		
 	}
 	
-	function submitSearchContent() {
-		var pageSize = ${pagination.pageSize};
-		var chapterId = document.getElementById("chapterId").value;
-		var searchContent = document.getElementById("searchContentInput").value;
-		if (!searchContent) {
-			searchContent = "";
-		}
-		
-		var turnUrl = "<%=PathUtil.getFullPath("teacher/questionList")%>" + "?chapterId=" + chapterId + "&pageSize=" + pageSize + "&searchContent=" + searchContent;
-		window.location.href = turnUrl;
-	}
-	
 	function initialColor(name) {
 		var turnUrl = "<%=PathUtil.getFullPath("teacher/questionList")%>" + "?chapterId=" + name;
 		window.location.href = turnUrl;
 	}
-	
 	
 	function runToQuestionList() {
 		var turnUrl = "<%=PathUtil.getFullPath("teacher/questionList")%>";
@@ -74,6 +76,14 @@
 	function deleteQuestions() {
 		var deleteFormObj = document.getElementById("deleteForm");
 		deleteFormObj.submit();
+	}
+	
+	function submitChapterInfo() {
+		var major = document.getElementById("major").value;
+		var date = document.getElementById("setUpDate").value;
+		var chapterId = document.getElementById("chapterId").value;
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/assignTask")%>" + "?major=" + major + "&date=" + date + "&chapterId=" + chapterId;;
+		window.location.href = turnUrl;
 	}
 </script>
 </head>
@@ -109,44 +119,44 @@
 			</div>
 
 			<hr class="main_hr2" />
-
 			<div class="main_right">
+			<form action="<%=PathUtil.getFullPath("teacher/deleteQuestion")%>" method="POST" id="addTaskForm">
 				<div class="div_main_task_center1" style="width:100%; height:190px;border:0px solid #2e4358;border-radius: 5px;position:absolute;top:15px;">
 					<label >专业班级&nbsp;:</label>
-					<select class="chapter_select_major" style="width:173px;height:21px;position: absolute; left:150px;top:0px;" name="options" disabled="disabled">
+					<select class="chapter_select_major" name="major" id="major" style="width:178px;height:25px;position: absolute; left:150px;top:0px;">
 					<c:forEach items="${majorList}" var="o">
-						<option value="${o.id}">${o.name}</option>
+						<option value="${o.id}" id="major">${o.name}</option>
 					</c:forEach>
 					</select>
 					
-					<label style="width: 100px;height:30px;position: absolute; left:0px;top:60px;">上机时间&nbsp;:</label>
-					<input type="date" style="width: 100px;height:30px;position: absolute; left:150px;top:120px;"/>
-					<label style="width: 100px;height:30px;position: absolute; left:0px;top:120px;">章节名称&nbsp;:</label>
-					<select class="chapter_select_chapter" style="width: 100px;height:30px;position: absolute; left:150px;top:120px;" name="options" disabled="disabled">
-					<option value="1"> 绪论</option>
-					<option value="2"> 线性表</option>
-					<option value="3">栈和队列</option>
-					<option value="4">串</option>
-					<option value="5">数组和广义表</option>
-					<option value="6"> 树和二叉树</option>
-					<option value="7"> 图</option>
-					<option value="8">动态存储管理</option>
-					<option value="9"> 查找</option>
-					<option value="10">内存排序</option>
-					<option value="11">外部排序</option>
-					<option value="12">文件</option>
+					<label style="width: 100px;height:30px;position: absolute; left:400px;top:0px;">上机时间&nbsp;:</label>
+					<input type="date" name="setUpDate" value="${date}" id="setUpDate" value="2016-06-06" style="width: 173px;height:21px;position: absolute; left:550px;top:0px;"/>
+					<label style="width: 100px;height:30px;position: absolute; left:0px;top:60px;">章节名称&nbsp;:</label>
+					<select onchange="submitChapterInfo()" name="chapterId" id="chapterId" class="chapter_select_chapter" style="width:178px;height:25px;position: absolute; left:150px;top:60px;" >
+					<option value="1" id="chapter"> 绪论</option>
+					<option value="2" id="chapter"> 线性表</option>
+					<option value="3" id="chapter">栈和队列</option>
+					<option value="4" id="chapter">串</option>
+					<option value="5" id="chapter">数组和广义表</option>
+					<option value="6" id="chapter"> 树和二叉树</option>
+					<option value="7" id="chapter"> 图</option>
+					<option value="8" id="chapter">动态存储管理</option>
+					<option value="9" id="chapter"> 查找</option>
+					<option value="10" id="chapter">内存排序</option>
+					<option value="11" id="chapter">外部排序</option>
+					<option value="12" id="chapter">文件</option>
 			</select>
 				</div>
-				<div class="div_main_task_center2" style="overflow:auto; width:100%; height:350px;border:1px solid #2e4358;border-radius: 5px;position:absolute;top:200px;"> 
+				<div class="div_main_task_center2" style="overflow:auto; width:100%; height:300px;border:1px solid #2e4358;border-radius: 5px;position:absolute;top:130px;"> 
 					<div class="div_main_center_one">
 						<ul style="list-style:none;margin:0px">
-							<li class="div_main_center_one_li11"><input type="checkBox" onclick="CheckAll()"/></li>
-							<li class="div_main_center_one_li21">ID</li>
-							<li class="div_main_center_one_li31">标题</li>
-							<li class="div_main_center_one_li41">描述</li>
+							<li class="div_main_center_one_li01">选题</li>
+							<li class="div_main_center_one_li11">ID</li>
+							<li class="div_main_center_one_li21">标题</li>
+							<li class="div_main_center_one_li31">描述</li>
 						</ul>
 					</div>
-					<form action="<%=PathUtil.getFullPath("teacher/deleteQuestion")%>" method="POST" id="deleteForm">
+					
 					<div class="div_main_center_two">
 					<%int i = 1; %>
 					<c:forEach items="${questionList}" var="o">
@@ -161,8 +171,9 @@
 						</div>
 					</c:forEach>
 					</div>
-					</form>
 				</div>
+				</form>
+				<div class="button_sure" style="left:430px" onclick="submitForm()">提交</div>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hpu.fyx.model.Task">
+    <select id="addTask" resultMap="int" parameterType="map">
+        <![CDATA[
+            INSERT INTO task(question_id, student_id, task_time, add_state) VALUES (#{questionId}, #{studentId},#{date}, #{addState});
+        ]]>
+    </select>
+</mapper>

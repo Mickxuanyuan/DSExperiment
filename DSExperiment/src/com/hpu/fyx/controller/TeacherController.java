@@ -143,7 +143,9 @@ public class TeacherController extends BaseController{
 	
 	@RequestMapping(value = "/assignTask", method = RequestMethod.GET)
     public ModelAndView assignTask(
-    							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId
+    							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId,
+    							  @RequestParam(value = "major", defaultValue = "0") int majorId,
+    							  @RequestParam(value = "date", defaultValue = "2016-06-06") String date
     							  ) {
 		User user = this.getUser();
         ModelAndView modelAndView = new ModelAndView();
@@ -153,6 +155,30 @@ public class TeacherController extends BaseController{
         modelAndView.addObject("user", user);
         modelAndView.addObject("majorList", majorList);
         modelAndView.addObject("questionList", questionList);
+        modelAndView.addObject("chapterId", chapterId);
+        modelAndView.addObject("major", majorId);
+        modelAndView.addObject("date", date);
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
+    public ModelAndView addTask(
+    							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId,
+    							  @RequestParam(value = "major", defaultValue = "0") int majorId,
+    							  @RequestParam(value = "date", defaultValue = "2016-06-06") String date,
+    							  @RequestParam(value = "chkAll", defaultValue = "2016-06-06") String[] ids
+    							  ) {
+		User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        List<Major> majorList = teacherService.getMajorList(user.getId());
+        List<Question> questionList = teacherService.getAllQuestion(chapterId);
+        modelAndView.setViewName(QUESTION_RELEASE_TASK_JSP);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("majorList", majorList);
+        modelAndView.addObject("questionList", questionList);
+        modelAndView.addObject("chapterId", chapterId);
+        modelAndView.addObject("major", majorId);
+        modelAndView.addObject("date", date);
         return modelAndView;
     }
 }

@@ -78,5 +78,4 @@
 	WHERE question.chapter_id = #{chapterId}; 
         ]]>
     </select>
-    
 </mapper>

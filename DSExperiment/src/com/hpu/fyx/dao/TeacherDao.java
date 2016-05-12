@@ -5,6 +5,7 @@ import java.util.List;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.Task;
 
 public interface TeacherDao {
 	public List<Question> queryQuestionList(Pagination pagination);
@@ -22,4 +23,6 @@ public interface TeacherDao {
 	public List<Major> getMajorList(int userId);
 	
 	public List<Question> getAllQuestionList(int chapterId);
+	
+	public void insertTask(Task task);
 }

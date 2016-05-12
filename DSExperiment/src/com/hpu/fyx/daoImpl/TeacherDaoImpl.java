@@ -1,5 +1,6 @@
 package com.hpu.fyx.daoImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,14 @@ import com.hpu.fyx.dao.TeacherDao;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.Task;
+import com.hpu.fyx.model.User;
 
 public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	private static final String CLASS_NAME = Question.class.getName();
 	private static final String CLASS_NAME_Major = Major.class.getName();
+	private static final String CLASS_NAME_User = User.class.getName();
+	private static final String CLASS_NAME_Task = Task.class.getName();
 	
 	@Override
 	public List<Question> queryQuestionList(Pagination pagination) {
@@ -66,5 +71,24 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	@Override
 	public List<Question> getAllQuestionList(int chapterId) {
 		return getSqlSession().selectList(CLASS_NAME + ".getAllQuestionList", chapterId);
+	}
+	
+	@Override
+	public void insertTask(Task task) {
+		int majorId = task.getMajorId();
+		List<Integer> list = new ArrayList<Integer>();
+		list = getSqlSession().selectList(CLASS_NAME_User + ".getStudentIdsByMajorId", majorId);
+		String[] questionIds = task.getQuestionIds();
+		for (Integer studentId : list) {
+			for (String questionId : questionIds) {
+				Map<String, Object> params = new HashMap<String, Object>();
+		        params.put("addState", task.getAddState());
+		        params.put("date", task.getDate());
+		        params.put("questionId", questionId);
+		        params.put("studentId", studentId);
+		        getSqlSession().selectList(CLASS_NAME_Task + ".addTask", params);
+			}
+		}
+		
 	}
 }
