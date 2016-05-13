@@ -75,20 +75,32 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	
 	@Override
 	public void insertTask(Task task) {
+		getSqlSession().insert(CLASS_NAME_Task + ".addTask", task);
+		int increaseId = task.getTaskId();
+		
 		int majorId = task.getMajorId();
-		List<Integer> list = new ArrayList<Integer>();
+		List<User> list = new ArrayList<User>();
 		list = getSqlSession().selectList(CLASS_NAME_User + ".getStudentIdsByMajorId", majorId);
 		String[] questionIds = task.getQuestionIds();
-		for (Integer studentId : list) {
+		for (User student : list) {
 			for (String questionId : questionIds) {
 				Map<String, Object> params = new HashMap<String, Object>();
-		        params.put("addState", task.getAddState());
-		        params.put("date", task.getDate());
+		        params.put("taskId", increaseId);
 		        params.put("questionId", questionId);
+		        int studentId = student.getId();
 		        params.put("studentId", studentId);
-		        getSqlSession().selectList(CLASS_NAME_Task + ".addTask", params);
+		        getSqlSession().selectList(CLASS_NAME_Task + ".addTaskDetail", params);
 			}
 		}
-		
+	}
+
+	@Override
+	public List<Task> getTaskList() {
+		return getSqlSession().selectList(CLASS_NAME_Task + ".getTaskList");
+	}
+
+	@Override
+	public List<Question> getQuestionCount(int chapterId) {
+		return getSqlSession().selectList(CLASS_NAME + ".queryQuestionCount", chapterId);
 	}
 }

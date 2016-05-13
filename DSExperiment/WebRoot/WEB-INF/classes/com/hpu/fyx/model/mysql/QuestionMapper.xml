@@ -26,12 +26,12 @@
     
     <select id="getDailyTask" resultMap="QuestionMap" parameterType="int">
         <![CDATA[
-            SELECT task.question_id AS id, newQuestion.question_title AS title, newQuestion.description, newQuestion.chapterName FROM task 
+           SELECT task_detail.question_id AS id, newQuestion.question_title AS title, newQuestion.description, newQuestion.chapterName FROM task_detail JOIN (SELECT id, task_date FROM task) AS newTask ON newTask.id = task_detail.task_id 
             JOIN (SELECT question.id AS questionId, question.title AS question_title, question.description, chapter.title as chapterName FROM question 
             JOIN chapter where chapter.id = question.chapter_id) 
             AS newQuestion 
-            ON newQuestion.questionId = task.question_id 
-            WHERE task.task_time=curdate() AND task.student_id = #{id};
+	    ON newQuestion.questionId = task_detail.question_id
+            WHERE newTask.task_date = curdate() AND task_detail.student_id = #{id};
         ]]>
     </select>
     
@@ -76,6 +76,12 @@
             SELECT question.id, question.title, question.description, new_chapter.title AS chapterName FROM question
  	JOIN (SELECT id, title FROM chapter WHERE id = #{chapterId}) AS new_chapter
 	WHERE question.chapter_id = #{chapterId}; 
+        ]]>
+    </select>
+    
+     <select id="queryQuestionCount" resultMap="QuestionMap" parameterType="int">
+        <![CDATA[
+            SELECT id FROM question WHERE chapter_id = #{chapterId};
         ]]>
     </select>
 </mapper>

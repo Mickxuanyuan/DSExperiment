@@ -8,7 +8,7 @@
 	line-height: 40px;
 	position: absolute;
 	right: 550px;
-	background: #D2DAE3;
+	background: #ffffff;
 	font-family: Arial;
 	color: #2E4358;
 }
@@ -58,6 +58,32 @@
 	float: left;
 	position: absolute;
 	left: 440px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li311 {
+	width: 100px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	left: 450px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 40px;
+	text-align: center;
+}
+
+.div_main_center_one_li411 {
+	width: 100px;
+	height: 40px;
+	float: left;
+	position: absolute;
+	left: 600px;
 	font-size: 14px;
 	font-family: Arial;
 	color: #oaoaoa;
@@ -139,6 +165,34 @@
 	float: left;
 	position: absolute;
 	left: 440px;
+	font-size: 12px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li411 {
+	overflow: hidden;
+	width: 100px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 450px;
+	font-size: 12px;
+	font-family: Arial;
+	color: #oaoaoa;
+	line-height: 30px;
+	text-align: center;
+}
+
+.div_main_center_two_li412 {
+	overflow: hidden;
+	width: 100px;
+	height: 30px;
+	float: left;
+	position: absolute;
+	left: 600px;
 	font-size: 12px;
 	font-family: Arial;
 	color: #oaoaoa;

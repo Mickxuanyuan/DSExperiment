@@ -1,9 +1,11 @@
 package com.hpu.fyx.model;
 
 public class Task {
+	private int taskId;
 	private String date;
 	private int addState;
 	private int majorId;
+	private String majorName;
 	private String[] questionIds;
 	
 	public String getDate() {
@@ -36,5 +38,21 @@ public class Task {
 	
 	public void setQuestionIds(String[] questionIds) {
 		this.questionIds = questionIds;
+	}
+
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+
+	public int getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
 	}
 }

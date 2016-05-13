@@ -13,6 +13,7 @@ import com.hpu.fyx.common.Constants;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.Task;
 import com.hpu.fyx.model.User;
 import com.hpu.fyx.service.TeacherService;
 
@@ -25,6 +26,9 @@ public class TeacherController extends BaseController{
 	private static final String QUESTION_DETAIL_JSP = "teacher/teacher_question_detail";
 	private static final String QUESTION_ADD_JSP = "teacher/teacher_add_question";
 	private static final String QUESTION_RELEASE_TASK_JSP = "teacher/teacher_release_task";
+	private static final String QUESTION_TASK_LIST_JSP = "teacher/teacher_task_list";
+	private static final String QUESTION_TASK_LIST_PAGE = "teacher/getTaskList";
+	private static final String QUESTION_RANDOM_TASK_JSP = "teacher/teacher_random_task";
 	
 	@Autowired
     private TeacherService teacherService;
@@ -141,7 +145,7 @@ public class TeacherController extends BaseController{
         return modelAndView;
     }
 	
-	@RequestMapping(value = "/assignTask", method = RequestMethod.GET)
+	@RequestMapping(value = "/addTaskJsp", method = RequestMethod.GET)
     public ModelAndView assignTask(
     							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId,
     							  @RequestParam(value = "major", defaultValue = "0") int majorId,
@@ -161,24 +165,58 @@ public class TeacherController extends BaseController{
         return modelAndView;
     }
 	
-	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
-    public ModelAndView addTask(
-    							  @RequestParam(value = "chapterId", defaultValue = "2") int chapterId,
+	@RequestMapping(value = "/addTaskPage", method = RequestMethod.POST)
+    public ModelAndView addTaskPage(
     							  @RequestParam(value = "major", defaultValue = "0") int majorId,
-    							  @RequestParam(value = "date", defaultValue = "2016-06-06") String date,
-    							  @RequestParam(value = "chkAll", defaultValue = "2016-06-06") String[] ids
+    							  @RequestParam(value = "setUpDate", defaultValue = "2016-06-06") String date,
+    							  @RequestParam(value = "chkAll", defaultValue = "") String[] ids
     							  ) {
+        ModelAndView modelAndView = new ModelAndView();
+        Task task = new Task();
+        task.setDate(date);
+        task.setMajorId(majorId);
+        task.setQuestionIds(ids);
+        task.setAddState(1);
+        teacherService.insertTask(task);
+        modelAndView.setView(this.getRedirectView(QUESTION_TASK_LIST_PAGE));
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/addRandomTaskJsp", method = RequestMethod.GET)
+    public ModelAndView addRandomTaskJsp() {
 		User user = this.getUser();
         ModelAndView modelAndView = new ModelAndView();
         List<Major> majorList = teacherService.getMajorList(user.getId());
-        List<Question> questionList = teacherService.getAllQuestion(chapterId);
-        modelAndView.setViewName(QUESTION_RELEASE_TASK_JSP);
-        modelAndView.addObject("user", user);
         modelAndView.addObject("majorList", majorList);
-        modelAndView.addObject("questionList", questionList);
-        modelAndView.addObject("chapterId", chapterId);
-        modelAndView.addObject("major", majorId);
-        modelAndView.addObject("date", date);
+        modelAndView.setViewName(QUESTION_RANDOM_TASK_JSP);
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/addRandomTask", method = RequestMethod.GET)
+    public ModelAndView addRandomTask(
+						    		  @RequestParam(value = "major", defaultValue = "0") int majorId,
+									  @RequestParam(value = "setUpDate", defaultValue = "2016-06-06") String date,
+									  @RequestParam(value = "questionNumber", defaultValue = "1") int questionNumber,
+									  @RequestParam(value = "chapterId", defaultValue = "1") int chapterId
+						    		  ) {
+        ModelAndView modelAndView = new ModelAndView();
+        Task task = new Task();
+        task.setMajorId(majorId);
+        task.setDate(date);
+        teacherService.insertRandomTask(task, chapterId, questionNumber);
+        modelAndView.setView(this.getRedirectView(QUESTION_TASK_LIST_PAGE));
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/getTaskList", method = RequestMethod.GET)
+    public ModelAndView getTaskList() {
+		User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        List<Task> taskList = teacherService.getTaskList();
+        modelAndView.addObject("taskList", taskList);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName(QUESTION_TASK_LIST_JSP);
+        
         return modelAndView;
     }
 }

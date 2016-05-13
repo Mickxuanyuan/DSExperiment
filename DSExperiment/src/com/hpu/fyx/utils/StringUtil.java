@@ -1,5 +1,8 @@
 package com.hpu.fyx.utils;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class StringUtil {
     public static boolean isEmpty(String data) {
         if (data == null || data.equals("")) {
@@ -22,4 +25,18 @@ public class StringUtil {
     	
     	return flag;
     }
+    
+    public static String[] randomCommon(ArrayList<Integer> arraylist, int n){  
+    	 String[] newArray = new String[n];
+     
+         //提取一个从数组中移除一个,效率最好
+         for (int i = 0; i < n; i++)
+         {
+             Random rnd = new Random();
+             int Id = rnd.nextInt(arraylist.size());
+             newArray[i] = arraylist.get(Id).toString();
+             arraylist.remove(Id);
+         }
+         return newArray;
+    }  
 }

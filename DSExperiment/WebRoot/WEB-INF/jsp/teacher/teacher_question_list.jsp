@@ -128,7 +128,7 @@
 	}
 	
 	function runToDailyTask() {
-		var turnUrl = "<%=PathUtil.getFullPath("teacher/assignTask")%>";
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/getTaskList")%>";
 		window.location.href = turnUrl;
 	}
 	

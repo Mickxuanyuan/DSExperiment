@@ -111,30 +111,12 @@
 				src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>
 
-		<div class="breadcrumb">
-			<div class="breadcrumb_question"
-				onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" style="background:#D2DAE3;" onclick="runToDailyTask()">今日任务</div>
-			<div class="breadcrumb_sign_in">签到详情</div>
-			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
-		</div>
-
-		<div class="center_main">
-			<div class="main_left">
-				<hr style="width:180px; position:absolute; top:50px;margin:0px" />
-				<div class="1" onclick="runToTaskList()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #2e4358;position: absolute;top:51px">
-				任务列表</div>
-				<hr style="width:180px; position:absolute; top:80px;margin:0px" />
-				<div class="2" onclick="runToAddTask()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#2e4358;font-family:Arial;color: #ffffff;position: absolute;top:81px">
-				指定任务</div>
-				<hr style="width:180px; position:absolute; top:110px;margin:0px" />
-				<div class="3" onclick="runToRandomTask()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #2e4358;position: absolute;top:111px">
-				随机任务</div>
-				<hr style="width:180px; position:absolute; top:140px;margin:0px" />
+		<div class="main_center">
+		
+			<div class="main_center_top">
+				<label>任务发布&nbsp;--</label><label class="edit_question_id_l">编辑任务&nbsp;--</label><label class="edit_question_id">T<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${task.id}"/></label>
 			</div>
-
-			<hr class="main_hr2" />
-			<div class="main_right">
+			<div class="main_right" style="top:60px;left:200px">
 			<form action="<%=PathUtil.getFullPath("teacher/addTaskPage")%>" method="POST" id="addTaskForm">
 				<div class="div_main_task_center1" style="width:100%; height:190px;border:0px solid #2e4358;border-radius: 5px;position:absolute;top:15px;">
 					<label >专业班级&nbsp;:</label>

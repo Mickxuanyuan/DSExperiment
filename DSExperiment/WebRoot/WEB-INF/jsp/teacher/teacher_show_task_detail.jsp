@@ -111,64 +111,19 @@
 				src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>
 
-		<div class="breadcrumb">
-			<div class="breadcrumb_question"
-				onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" style="background:#D2DAE3;" onclick="runToDailyTask()">今日任务</div>
-			<div class="breadcrumb_sign_in">签到详情</div>
-			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
-		</div>
-
-		<div class="center_main">
-			<div class="main_left">
-				<hr style="width:180px; position:absolute; top:50px;margin:0px" />
-				<div class="1" onclick="runToTaskList()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #2e4358;position: absolute;top:51px">
-				任务列表</div>
-				<hr style="width:180px; position:absolute; top:80px;margin:0px" />
-				<div class="2" onclick="runToAddTask()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#2e4358;font-family:Arial;color: #ffffff;position: absolute;top:81px">
-				指定任务</div>
-				<hr style="width:180px; position:absolute; top:110px;margin:0px" />
-				<div class="3" onclick="runToRandomTask()" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #2e4358;position: absolute;top:111px">
-				随机任务</div>
-				<hr style="width:180px; position:absolute; top:140px;margin:0px" />
+		<div class="main_center">
+		
+			<div class="main_center_top">
+				<label>任务发布&nbsp;--</label><label class="edit_question_id_l">任务详情&nbsp;--</label><label class="edit_question_id">T<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${task.id}"/></label>
 			</div>
-
-			<hr class="main_hr2" />
-			<div class="main_right">
+			<div class="main_right" style="top:60px;left:250px">
 			<form action="<%=PathUtil.getFullPath("teacher/addTaskPage")%>" method="POST" id="addTaskForm">
-				<div class="div_main_task_center1" style="width:100%; height:190px;border:0px solid #2e4358;border-radius: 5px;position:absolute;top:15px;">
-					<label >专业班级&nbsp;:</label>
-					<select class="chapter_select_major" name="major" id="major" style="width:178px;height:25px;position: absolute; left:150px;top:0px;">
-					<c:forEach items="${majorList}" var="o">
-						<option value="${o.id}" id="major">${o.name}</option>
-					</c:forEach>
-					</select>
-					
-					<label style="width: 100px;height:30px;position: absolute; left:400px;top:0px;">上机时间&nbsp;:</label>
-					<input type="date" name="setUpDate" value="${date}" id="setUpDate" value="2016-06-06" style="width: 173px;height:21px;position: absolute; left:550px;top:0px;"/>
-					<label style="width: 100px;height:30px;position: absolute; left:0px;top:60px;">章节名称&nbsp;:</label>
-					<select onchange="submitChapterInfo()" name="chapterId" id="chapterId" class="chapter_select_chapter" style="width:178px;height:25px;position: absolute; left:150px;top:60px;" >
-					<option value="1" id="chapter"> 绪论</option>
-					<option value="2" id="chapter"> 线性表</option>
-					<option value="3" id="chapter">栈和队列</option>
-					<option value="4" id="chapter">串</option>
-					<option value="5" id="chapter">数组和广义表</option>
-					<option value="6" id="chapter"> 树和二叉树</option>
-					<option value="7" id="chapter"> 图</option>
-					<option value="8" id="chapter">动态存储管理</option>
-					<option value="9" id="chapter"> 查找</option>
-					<option value="10" id="chapter">内存排序</option>
-					<option value="11" id="chapter">外部排序</option>
-					<option value="12" id="chapter">文件</option>
-			</select>
-				</div>
-				<div class="div_main_task_center2" style="overflow:auto; width:100%; height:300px;border:1px solid #2e4358;border-radius: 5px;position:absolute;top:130px;"> 
+				<div class="div_main_task_center2" style="overflow:auto; width:800px; height:430px;border:1px solid #2e4358;border-radius: 5px;position:absolute;top:30px;"> 
 					<div class="div_main_center_one">
 						<ul style="list-style:none;margin:0px">
-							<li class="div_main_center_one_li01">选题</li>
-							<li class="div_main_center_one_li11">ID</li>
-							<li class="div_main_center_one_li21">标题</li>
-							<li class="div_main_center_one_li31">描述</li>
+							<li class="div_main_center_one_li01" >学号</li>
+							<li class="div_main_center_one_li11" style="left:200px">姓名</li>
+							<li class="div_main_center_one_li21" style="left:500px">问题详情</li>
 						</ul>
 					</div>
 					
@@ -177,18 +132,15 @@
 					<c:forEach items="${questionList}" var="o">
 						<div class="div_main_center_two1">
 							<ul style="list-style:none;margin:0px;">
-								<li class="div_main_center_two_li11">
-								<input type="checkBox" value="${o.id}" name="chkAll" id="chkAll"/></li>
-								<li class="div_main_center_two_li21">Q<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${o.id}"/></li>
-								<li class="div_main_center_two_li31">${o.title}</li>
-								<li class="div_main_center_two_li41">${o.description}</li>
+								<li class="div_main_center_two_li11">T<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${o.id}"/></li>
+								<li class="div_main_center_two_li21" style="left:200px">123</li>
+								<li class="div_main_center_two_li31" style="left:500px">456</li>
 							</ul>
 						</div>
 					</c:forEach>
 					</div>
 				</div>
 				</form>
-				<div class="button_sure" style="left:430px" onclick="submitForm()">提交</div>
 			</div>
 		</div>
 	</div>

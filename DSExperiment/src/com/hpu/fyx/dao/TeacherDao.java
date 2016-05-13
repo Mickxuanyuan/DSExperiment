@@ -25,4 +25,8 @@ public interface TeacherDao {
 	public List<Question> getAllQuestionList(int chapterId);
 	
 	public void insertTask(Task task);
+	
+	public List<Task> getTaskList();
+	
+	public List<Question> getQuestionCount(int chapterId);
 }

@@ -36,7 +36,7 @@
         ]]>
     </select>
     
-    <select id="getStudentIdsByMajorId" parameterType="int" resultMap="list">
+    <select id="getStudentIdsByMajorId" parameterType="int" resultMap="studentMap">
         <![CDATA[
             SELECT id FROM student WHERE major_id = #{majorId};
         ]]>
