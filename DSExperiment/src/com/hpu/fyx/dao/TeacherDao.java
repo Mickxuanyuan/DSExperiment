@@ -5,6 +5,7 @@ import java.util.List;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
 
 public interface TeacherDao {
@@ -29,4 +30,16 @@ public interface TeacherDao {
 	public List<Task> getTaskList();
 	
 	public List<Question> getQuestionCount(int chapterId);
+	
+	public void deleteTask(String[] taskIds);
+	
+	public List<Task> queryEditTask(int taskId);
+	
+	public void updateTask(Task task);
+	
+	public List<SignIn> querySignInList(int userId);
+	
+	public List<SignIn> getSignUpload(String majorName, String date);
+	
+	public List<SignIn> signInDetail(String majorName, String date);
 }

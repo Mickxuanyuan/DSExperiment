@@ -47,4 +47,14 @@ public class StudentDaoImpl extends SqlSessionDaoSupport implements StudentDao {
 	public int querySignIn(int id) {
 		return getSqlSession().selectOne(CLASS_NAME + ".querySignIn", id);
 	}
+
+	@Override
+	public void updateSignUpload(int userId) {
+		getSqlSession().selectOne(CLASS_NAME + ".updateSignUpload", userId);
+	}
+
+	@Override
+	public void insertSignUpload(int userId) {
+		getSqlSession().selectOne(CLASS_NAME + ".insertSignUpload", userId);
+	}
 }

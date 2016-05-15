@@ -12,6 +12,7 @@
 <title>今日任务</title>
 <link href="<%=PropertyUtil.getStaticUrl()%>/style/student_home.css"
 	rel="stylesheet" type="text/css">
+<link href="<%=PropertyUtil.getStaticUrl()%>/style/teacher_home.css" rel="stylesheet" type="text/css">
 
 <script>
 function runToQuestionList() {
@@ -22,6 +23,11 @@ function runToQuestionList() {
 function runToDailyTask() {
 	var turnUrl = "<%=PathUtil.getFullPath("student/dailyTask")%>";
 	window.location.href = turnUrl;
+}
+
+function submitForm() {
+	 var uploadTaskFormObj = document.getElementById("uploadTaskForm");
+	 uploadTaskFormObj.submit();
 }
 </script>
 </head>
@@ -68,6 +74,16 @@ function runToDailyTask() {
 				</div>
 				</c:forEach>
 				<br/>
+			</div>
+			
+			<div style="width:600px; height:100px; position: absolute; left: 600px; top : 450px">
+				<form action="<%=PathUtil.getFullPath("student/uploadTask")%>" id="uploadTaskForm" method="post" enctype="multipart/form-data">
+				<p>
+				<span style="color: blue; font-size: 18px">作业上交：</span>
+				<input style="width:300px; height: 50px;color: blue; font-size: 18px; " type="file" name="taskFile"/>
+				</p>
+				<div class="button_sure" style="left:20px; top:50px" onclick="submitForm()">提交</div>
+				</form>
 			</div>
 		</div>
 	</div>

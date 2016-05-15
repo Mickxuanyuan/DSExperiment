@@ -84,4 +84,17 @@
             SELECT id FROM question WHERE chapter_id = #{chapterId};
         ]]>
     </select>
+    
+     <select id="updateSignUpload" resultType="int" parameterType="int">
+        <![CDATA[
+            UPDATE sign_in SET upload_time = NOW(), upload_state = 1 WHERE student_id = #{userId} AND sign_in_datetime like concat(curdate(), '%');
+        ]]>
+    </select>
+    
+     <select id="insertSignUpload" resultType="int" parameterType="int">
+        <![CDATA[
+            INSERT INTO sign_in(student_id, sign_in_datetime, sign_in_status, upload_time, upload_state) VALUES (#{userId}, NOW(), 1, NOW(), 1); 
+        ]]>
+    </select>
+    
 </mapper>

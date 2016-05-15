@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Pagination {
 	private List<?> record;//存储页面数据
-	
 	private int currentPage = 1;//当前页面
 	private int totalRecord;//总记录数
 	private int pageSize = 10;//每页的显示行数
@@ -14,7 +13,6 @@ public class Pagination {
 	private int chapterId;
 	
 	public Pagination() {
-		
 	}
 	public Pagination(int currentPage, int totalRecord, int pageSize) {
 		this.currentPage = currentPage;

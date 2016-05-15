@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hpu.fyx.model.SignIn">
+	<resultMap type="SignIn" id="SignInMap">
+        <id column="id" property="taskId"/>
+        <result column="username" property="studentName"/>
+        <result column="s_id" property="studentId"/>
+        <result column="sign_in_datetime" property="signTime"/>
+        <result column="upload_time" property="uploadTime"/>
+        <result column="sign_in_status" property="signInStatus"/>
+        <result column="upload_state" property="uploadState"/>
+    </resultMap>
+    
+     <select id="getSignUpload" resultMap="SignInMap" parameterType="map">
+        <![CDATA[
+            SELECT username, s_id, newSign.sign_in_datetime, newSign.sign_in_status, newSign.upload_time, newSign.upload_state FROM student 
+           	LEFT JOIN (SELECT student_id, sign_in_datetime,newStudent.major_id AS majorId, sign_in_status, upload_time, upload_state FROM sign_in 
+	    	JOIN(SELECT id, major_id FROM student)AS newStudent ON newStudent.id = sign_in.student_id AND sign_in.sign_in_datetime like concat(#{taskDate}, '%')) AS newSign 
+	    	ON newSign.majorId = #{majorId} AND newSign.student_id = student.id WHERE student.major_id = #{majorId} order by student.s_id;
+        ]]>
+    </select>
+</mapper>

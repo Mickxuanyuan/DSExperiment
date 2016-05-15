@@ -17,13 +17,13 @@
 	window.onload = function() {
 		var obj= document.getElementsByTagName("option");
 		for(var i=0;i<obj.length;i++) {
-			if(obj[i].value=='${chapterId}' && obj[i].id=='chapter') {
+			if(obj[i].value=='${task.chapterId}' && obj[i].id=='chapter') {
 				obj[i].selected=true;
 			}
 		}
 		
 		for(var i=0;i<obj.length;i++) {
-			if(obj[i].value=='${major}' && obj[i].id=='major') {
+			if(obj[i].value=='${task.majorId}' && obj[i].id=='major') {
 				obj[i].selected=true;
 			}
 		}
@@ -97,7 +97,7 @@
 	}
 	
 	function submitForm() {
-		 var addTaskFormObj = document.getElementById("addTaskForm");
+		 var addTaskFormObj = document.getElementById("updateTask");
 		 addTaskFormObj.submit();
 	}
 </script>
@@ -114,10 +114,10 @@
 		<div class="main_center">
 		
 			<div class="main_center_top">
-				<label>任务发布&nbsp;--</label><label class="edit_question_id_l">编辑任务&nbsp;--</label><label class="edit_question_id">T<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${task.id}"/></label>
+				<label>任务发布&nbsp;--</label><label class="edit_question_id_l">编辑任务&nbsp;--</label><label class="edit_question_id">T<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${task.taskId}"/></label>
 			</div>
 			<div class="main_right" style="top:60px;left:200px">
-			<form action="<%=PathUtil.getFullPath("teacher/addTaskPage")%>" method="POST" id="addTaskForm">
+			<form action="<%=PathUtil.getFullPath("teacher/updateTask")%>" method="POST" id="updateTask">
 				<div class="div_main_task_center1" style="width:100%; height:190px;border:0px solid #2e4358;border-radius: 5px;position:absolute;top:15px;">
 					<label >专业班级&nbsp;:</label>
 					<select class="chapter_select_major" name="major" id="major" style="width:178px;height:25px;position: absolute; left:150px;top:0px;">
@@ -126,8 +126,9 @@
 					</c:forEach>
 					</select>
 					
+					<input type="text" name="taskId" value="${task.taskId}" style="visibility: hidden;"/>
 					<label style="width: 100px;height:30px;position: absolute; left:400px;top:0px;">上机时间&nbsp;:</label>
-					<input type="date" name="setUpDate" value="${date}" id="setUpDate" value="2016-06-06" style="width: 173px;height:21px;position: absolute; left:550px;top:0px;"/>
+					<input type="date" name="setUpDate" value="${task.date}" id="setUpDate" value="2016-06-06" style="width: 173px;height:21px;position: absolute; left:550px;top:0px;"/>
 					<label style="width: 100px;height:30px;position: absolute; left:0px;top:60px;">章节名称&nbsp;:</label>
 					<select onchange="submitChapterInfo()" name="chapterId" id="chapterId" class="chapter_select_chapter" style="width:178px;height:25px;position: absolute; left:150px;top:60px;" >
 					<option value="1" id="chapter"> 绪论</option>
@@ -160,7 +161,19 @@
 						<div class="div_main_center_two1">
 							<ul style="list-style:none;margin:0px;">
 								<li class="div_main_center_two_li11">
-								<input type="checkBox" value="${o.id}" name="chkAll" id="chkAll"/></li>
+								<%boolean state = false; %>
+								<c:forEach items="${task.questionIds}" var="q">
+								
+								<c:if test="${q == o.id}">
+								<%state = true;%>
+								</c:if>
+								</c:forEach>
+								<input type="checkBox" value="${o.id}"  name="chkAll" id="chkAll"
+								<%if (state){ %>
+								checked="checked"
+								<% }%>
+								/>
+								</li>
 								<li class="div_main_center_two_li21">Q<fmt:formatNumber type="number" pattern="######" minIntegerDigits="6" value="${o.id}"/></li>
 								<li class="div_main_center_two_li31">${o.title}</li>
 								<li class="div_main_center_two_li41">${o.description}</li>

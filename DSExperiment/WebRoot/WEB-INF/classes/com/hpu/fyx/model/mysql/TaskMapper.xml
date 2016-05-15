@@ -7,6 +7,9 @@
         <result column="majorName" property="majorName"/>
         <result column="task_date" property="date"/>
         <result column="add_state" property="addState"/>
+        <result column="question_id" property="questionId"/>
+        <result column="major_id" property="majorId"/>
+        <result column="chapter_id" property="chapterId"/>
     </resultMap>
 
     <insert id="addTask" useGeneratedKeys="true" keyProperty="taskId" parameterType="com.hpu.fyx.model.Task">
@@ -24,6 +27,39 @@
      <select id="getTaskList" resultMap="TaskMap">
         <![CDATA[
             SELECT task.id, newMajor.name AS majorName, task_date, add_state FROM task JOIN (SELECT id, name FROM major) AS newMajor ON newMajor.id = task.major_id; 
+        ]]>
+    </select>
+    
+     <select id="deleteTaskDetail" resultType="int"  parameterType="int">
+        <![CDATA[
+            DELETE FROM task_detail WHERE task_id = #{taskId}; 
+        ]]>
+    </select>
+    
+    <select id="deleteTask" resultType="int"  parameterType="int">
+        <![CDATA[
+            DELETE FROM task WHERE id = #{taskId}; 
+        ]]>
+    </select>
+    
+    <select id="queryEditTask" resultMap="TaskMap"  parameterType="int">
+        <![CDATA[
+           SELECT task_detail.question_id, newTask.task_date, newStudent.major_id, newQuestion.chapter_id FROM task_detail JOIN (SELECT id, task_date FROM task) AS newTask ON newTask.id = task_detail.task_id 
+            JOIN (SELECT id, major_id FROM student) AS newStudent ON newStudent.id = task_detail.student_id
+            JOIN (SELECT chapter_id, id FROM question) AS newQuestion ON newQuestion.id = task_detail.question_id
+            WHERE task_detail.task_id = #{taskId} group by task_detail.question_id;
+        ]]>
+     </select>
+     
+      <insert id="updateTask" useGeneratedKeys="true" keyProperty="taskId" parameterType="com.hpu.fyx.model.Task">
+        <![CDATA[
+            INSERT INTO task(id, major_id, task_date, add_state) VALUES (#{taskId}, #{majorId}, #{date}, #{addState});
+        ]]>
+    </insert>
+    
+      <select id="queryBaseTask" resultMap="TaskMap"  parameterType="int">
+        <![CDATA[
+            SELECT id, task_date FROM task WHERE major_id = #{majorId};
         ]]>
     </select>
 </mapper>

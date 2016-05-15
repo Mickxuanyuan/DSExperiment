@@ -41,7 +41,7 @@
         <property name="typeAliasesPackage" value="com.hpu.fyx.model"></property>
         <property name="mapperLocations" value="classpath*:com/hpu/fyx/model/mysql/*Mapper.xml" />
     </bean>
-
+	
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>

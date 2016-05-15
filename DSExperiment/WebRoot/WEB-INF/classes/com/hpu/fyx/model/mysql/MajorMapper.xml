@@ -14,4 +14,16 @@
 			WHERE teacher_major.teacher_id = #{userId};
         ]]>
     </select>
+    
+     <select id="getMajorName" resultType="string" parameterType="int">
+        <![CDATA[
+            SELECT name FROM major WHERE id = #{majorId};
+        ]]>
+    </select>
+    
+    <select id="getMajorId" resultType="int" parameterType="string">
+        <![CDATA[
+            SELECT id FROM major WHERE name = #{majorName};
+        ]]>
+    </select>
 </mapper>

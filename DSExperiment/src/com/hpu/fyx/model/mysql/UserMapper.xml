@@ -41,4 +41,16 @@
             SELECT id FROM student WHERE major_id = #{majorId};
         ]]>
     </select>
+    
+    <select id="getStudentNumbers" parameterType="int" resultType="int">
+        <![CDATA[
+            SELECT COUNT(*) FROM student WHERE major_id = #{majorId};
+        ]]>
+    </select>
+    
+     <select id="getUnSignNumbers" parameterType="map" resultType="int">
+        <![CDATA[
+            SELECT count(*) FROM student JOIN (SELECT student_Id, sign_in_datetime FROM sign_in) AS newSign ON newSign.student_id = student.id where student.major_id = #{majorId} AND newSign.sign_in_datetime like concat(#{taskDate}, '%');
+        ]]>
+    </select>
 </mapper>

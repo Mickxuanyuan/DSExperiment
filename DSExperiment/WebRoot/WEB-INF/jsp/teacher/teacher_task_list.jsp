@@ -68,16 +68,26 @@
 		window.location.href = turnUrl;
 	}
 	
-	function deleteQuestions() {
+	function deleteTask() {
 		var deleteFormObj = document.getElementById("deleteForm");
 		deleteFormObj.submit();
+	}
+	
+	function submitEdit(id) {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/editTask")%>" + "?taskId=" + id;
+		window.location.href = turnUrl;
 	}
 	
 	function submitChapterInfo() {
 		var major = document.getElementById("major").value;
 		var date = document.getElementById("setUpDate").value;
 		var chapterId = document.getElementById("chapterId").value;
-		var turnUrl = "<%=PathUtil.getFullPath("teacher/assignTask")%>" + "?major=" + major + "&date=" + date + "&chapterId=" + chapterId;;
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/assignTask")%>" + "?major=" + major + "&date=" + date + "&chapterId=" + chapterId;
+		window.location.href = turnUrl;
+	}
+	
+	function runToSignInDetail() {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/signIn")%>";
 		window.location.href = turnUrl;
 	}
 </script>
@@ -94,8 +104,8 @@
 		<div class="breadcrumb">
 			<div class="breadcrumb_question"
 				onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" style="background:#D2DAE3;" onclick="runToDailyTask()">今日任务</div>
-			<div class="breadcrumb_sign_in">签到详情</div>
+			<div class="breadcrumb_task" style="background:#D2DAE3;" onclick="runToDailyTask()">发布任务</div>
+			<div class="breadcrumb_sign_in" onclick="runToSignInDetail()">签到详情</div>
 			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
 		</div>
 
@@ -126,7 +136,7 @@
 							<li class="div_main_center_one_li51"><input type="checkBox" onclick="CheckAll()"/></li>
 						</ul>
 					</div>
-					
+					<form action="<%=PathUtil.getFullPath("teacher/deleteTask")%>" method="POST" id="deleteForm">
 					<div class="div_main_center_two" style="height: 369px">
 					<%int i = 1; %>
 					<c:forEach items="${taskList}" var="o">
@@ -141,15 +151,16 @@
 								</c:if>
 								<c:if test="${o.addState == '2'}">
 								<li class="div_main_center_two_li412">随机生成</li>
-								</c:if><c:if test="${o.addState == '1'}">
-								<li class="div_main_center_two_li51" style="left: " onclick="submitEdit('${o.taskId}')"></li>
 								</c:if>
+								<li class="div_main_center_two_li51" style="left: " onclick="submitEdit('${o.taskId}')"></li>
 								<li class="div_main_center_two_li6">
 								<input type="checkBox" value="${o.taskId}" name="chkAll" id="chkAll"/></li>
 							</ul>
 						</div>
 					</c:forEach>
+					<div class="delete" style="top: 350px" onclick="deleteTask()">删除</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -13,4 +13,6 @@ public interface StudentService {
 	public int querySignIn(int userId);
 	
 	public void insertSignIn(int userId);
+	
+	public void insertUploadInfo(int userId);
 }

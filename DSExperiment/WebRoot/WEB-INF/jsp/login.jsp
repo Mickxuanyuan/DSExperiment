@@ -12,7 +12,6 @@
     <title>Login</title>
     <link href="<%=PropertyUtil.getStaticUrl()%>/style/reset.css" rel="stylesheet" type="text/css">
     <link href="<%=PropertyUtil.getStaticUrl()%>/style/login.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/js/common.js"></script>
   </head>
   
   <style>

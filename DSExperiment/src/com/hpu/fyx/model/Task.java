@@ -7,6 +7,8 @@ public class Task {
 	private int majorId;
 	private String majorName;
 	private String[] questionIds;
+	private int chapterId;
+	private int questionId;
 	
 	public String getDate() {
 		return date;
@@ -54,5 +56,21 @@ public class Task {
 
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
+	}
+
+	public int getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(int chapterId) {
+		this.chapterId = chapterId;
+	}
+
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 }

@@ -40,4 +40,16 @@ public class StudentServiceImpl implements StudentService {
 	public void insertSignIn(int userId) {
 		studentDao.insertSignIn(userId);
 	}
+
+	@Override
+	public void insertUploadInfo(int userId) {
+		int signInfo = studentDao.querySignIn(userId);
+		if (signInfo == 1) {
+			//update
+			studentDao.updateSignUpload(userId);
+		} else {
+			//insert
+			studentDao.insertSignUpload(userId);
+		}
+	}
 }

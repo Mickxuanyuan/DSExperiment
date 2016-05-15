@@ -5,6 +5,7 @@ import java.util.List;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
 
 public interface TeacherService {
@@ -27,4 +28,14 @@ public interface TeacherService {
 	public void insertTask(Task task);
 	
 	public void insertRandomTask(Task task, int chapterId, int questionNumber);
+	
+	public void deleteTask(String[] taskIds);
+	
+	public Task queryEditTask(int taskId);
+	
+	public void updateTask(Task task);
+	
+	public List<SignIn> querySignInList(int UserId);
+	
+	public List<SignIn> signInDetail(String majorName, String date);
 }

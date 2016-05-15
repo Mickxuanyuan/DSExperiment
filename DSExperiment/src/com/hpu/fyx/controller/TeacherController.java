@@ -1,6 +1,15 @@
 package com.hpu.fyx.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +22,7 @@ import com.hpu.fyx.common.Constants;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
 import com.hpu.fyx.model.User;
 import com.hpu.fyx.service.TeacherService;
@@ -29,6 +39,9 @@ public class TeacherController extends BaseController{
 	private static final String QUESTION_TASK_LIST_JSP = "teacher/teacher_task_list";
 	private static final String QUESTION_TASK_LIST_PAGE = "teacher/getTaskList";
 	private static final String QUESTION_RANDOM_TASK_JSP = "teacher/teacher_random_task";
+	private static final String QUESTION_EDIT_TASK_JSP = "teacher/teacher_edit_task";
+	private static final String QUESTION_SIGN_IN_JSP = "teacher/teacher_sign_in_list";
+	private static final String QUESTION_SIGN_IN_DETAIL_JSP = "teacher/teacher_sign_in_detail_list";
 	
 	@Autowired
     private TeacherService teacherService;
@@ -110,7 +123,7 @@ public class TeacherController extends BaseController{
     }
 	
 	@RequestMapping(value = "/deleteQuestion", method = RequestMethod.POST)
-    public ModelAndView submitEditResult(
+    public ModelAndView deleteQuestion(
     						   @RequestParam(value = "chkAll", defaultValue = "1") String[] ids
     									) {
         ModelAndView modelAndView = new ModelAndView();
@@ -219,4 +232,130 @@ public class TeacherController extends BaseController{
         
         return modelAndView;
     }
+	
+	@RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
+    public ModelAndView deleteTask(
+    						   	   @RequestParam(value = "chkAll", defaultValue = "1") String[] ids
+    							   ) {
+        ModelAndView modelAndView = new ModelAndView();
+        teacherService.deleteTask(ids);
+        modelAndView.setView(this.getRedirectView(QUESTION_TASK_LIST_PAGE));
+        
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/editTask", method = RequestMethod.GET)
+    public ModelAndView editTask(
+                                @RequestParam(value = "taskId", defaultValue = "1") int taskId
+                                ) {
+		User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        List<Major> majorList = teacherService.getMajorList(user.getId());
+        Task task = teacherService.queryEditTask(taskId);
+        List<Question> questionList = teacherService.getAllQuestion(task.getChapterId());
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("majorList", majorList);
+        modelAndView.addObject("questionList", questionList);
+        modelAndView.addObject("task", task);
+        modelAndView.setViewName(QUESTION_EDIT_TASK_JSP);
+        
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/updateTask", method = RequestMethod.POST)
+    public ModelAndView updateTask(
+								  @RequestParam(value = "major", defaultValue = "0") int majorId,
+								  @RequestParam(value = "setUpDate", defaultValue = "2016-06-06") String date,
+								  @RequestParam(value = "chkAll", defaultValue = "") String[] ids,
+								  @RequestParam(value = "taskId", defaultValue = "1") int taskId
+                                  ) {
+		 ModelAndView modelAndView = new ModelAndView();
+         Task task = new Task();
+         task.setDate(date);
+         task.setMajorId(majorId);
+         task.setQuestionIds(ids);
+         task.setAddState(1);
+         task.setTaskId(taskId);
+         teacherService.updateTask(task);
+         modelAndView.setView(this.getRedirectView(QUESTION_TASK_LIST_PAGE));
+        
+         return modelAndView;
+    }
+	
+	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    public ModelAndView updateTask() {
+		 User user = this.getUser();
+		 ModelAndView modelAndView = new ModelAndView();
+		 List<SignIn> signInList = teacherService.querySignInList(user.getId());
+		 modelAndView.addObject("user", user);
+		 modelAndView.addObject("signInList", signInList);
+         modelAndView.setViewName(QUESTION_SIGN_IN_JSP);
+         return modelAndView;
+    }
+	
+	@RequestMapping(value = "/signInDetail", method = RequestMethod.GET)
+    public ModelAndView signInDetail(
+									@RequestParam(value = "majorName", defaultValue = "信管一班") String majorName,
+									@RequestParam(value = "date", defaultValue = "2016-06-06") String date
+    								) {
+		 User user = this.getUser();
+		 ModelAndView modelAndView = new ModelAndView();
+		 List<SignIn> signInDeailList = teacherService.signInDetail(majorName, date);
+		 modelAndView.addObject("user", user);
+		 modelAndView.addObject("majorName", majorName);
+		 modelAndView.addObject("date", date);
+		 modelAndView.addObject("signInList", signInDeailList);
+         modelAndView.setViewName(QUESTION_SIGN_IN_DETAIL_JSP);
+         return modelAndView;
+    }
+	
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+ 	public String download(
+ 						  @RequestParam(value = "majorName", defaultValue = "信管一班") String majorName,
+ 						  @RequestParam(value = "date", defaultValue = "2016-06-06") String date,
+ 						  @RequestParam(value = "studentName", defaultValue = "xuan") String studentName,
+						  @RequestParam(value = "studentId", defaultValue = "311209030214") String studentId,
+ 						  HttpServletRequest request, HttpServletResponse response
+ 						  ){
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		java.io.BufferedInputStream bis = null;
+		java.io.BufferedOutputStream bos = null;
+		String ctxPath = request.getSession().getServletContext().getRealPath("/") + "upload/" + majorName + date +"/"; 
+		String downLoadPath = ctxPath + studentId + studentName + ".zip";
+		System.out.println(downLoadPath);
+		try {
+			long fileLength = new File(downLoadPath).length();
+			response.setContentType("application/x-msdownload;");
+			response.setHeader("Content-disposition", "attachment; filename=" + new String((studentId + studentName + ".zip").getBytes("utf-8"), "ISO8859-1"));
+			response.setHeader("Content-Length", String.valueOf(fileLength));
+			bis = new BufferedInputStream(new FileInputStream(downLoadPath));
+			bos = new BufferedOutputStream(response.getOutputStream());
+			byte[] buff = new byte[2048];
+			int bytesRead;
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+				bos.write(buff, 0, bytesRead);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null)
+				try {
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			if (bos != null)
+				try {
+					bos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		return null;
+	}
 }

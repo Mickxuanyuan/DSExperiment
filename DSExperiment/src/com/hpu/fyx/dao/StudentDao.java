@@ -15,4 +15,8 @@ public interface StudentDao {
 	public List<Question> queryDailyTask(int userId);
 	
 	public int querySignIn(int userId);
+	
+	public void updateSignUpload(int userId);
+	
+	public void insertSignUpload(int userId);
 }

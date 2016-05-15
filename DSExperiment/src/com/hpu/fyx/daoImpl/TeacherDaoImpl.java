@@ -11,6 +11,7 @@ import com.hpu.fyx.dao.TeacherDao;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
 import com.hpu.fyx.model.User;
 
@@ -19,6 +20,7 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	private static final String CLASS_NAME_Major = Major.class.getName();
 	private static final String CLASS_NAME_User = User.class.getName();
 	private static final String CLASS_NAME_Task = Task.class.getName();
+	private static final String CLASS_NAME_SignIn = SignIn.class.getName();
 	
 	@Override
 	public List<Question> queryQuestionList(Pagination pagination) {
@@ -102,5 +104,83 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 	@Override
 	public List<Question> getQuestionCount(int chapterId) {
 		return getSqlSession().selectList(CLASS_NAME + ".queryQuestionCount", chapterId);
+	}
+
+	@Override
+	public void deleteTask(String[] taskIds) {
+		for (String id : taskIds) {
+			int taskId = Integer.parseInt(id);
+			getSqlSession().delete(CLASS_NAME_Task + ".deleteTaskDetail", taskId);
+			getSqlSession().delete(CLASS_NAME_Task + ".deleteTask", taskId);
+		}
+	}
+
+	@Override
+	public List<Task> queryEditTask(int taskId) {
+		return getSqlSession().selectList(CLASS_NAME_Task + ".queryEditTask", taskId);
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		getSqlSession().insert(CLASS_NAME_Task + ".updateTask", task);
+		int taskId = task.getTaskId();
+		int majorId = task.getMajorId();
+		List<User> list = new ArrayList<User>();
+		list = getSqlSession().selectList(CLASS_NAME_User + ".getStudentIdsByMajorId", majorId);
+		String[] questionIds = task.getQuestionIds();
+		for (User student : list) {
+			for (String questionId : questionIds) {
+				Map<String, Object> params = new HashMap<String, Object>();
+		        params.put("taskId", taskId);
+		        params.put("questionId", questionId);
+		        int studentId = student.getId();
+		        params.put("studentId", studentId);
+		        getSqlSession().selectList(CLASS_NAME_Task + ".addTaskDetail", params);
+			}
+		}
+	}
+
+	@Override
+	public List<SignIn> querySignInList(int userId) {
+		List<SignIn> signInList = new ArrayList<SignIn>();
+		List<Major> majorList = getSqlSession().selectList(CLASS_NAME_Major + ".getMajorList", userId);
+		for (Major major : majorList) {
+			int majorId = major.getId();
+			int studentNumber = getSqlSession().selectOne(CLASS_NAME_User + ".getStudentNumbers", majorId);
+			String majorName = getSqlSession().selectOne(CLASS_NAME_Major + ".getMajorName", majorId);
+			List<Task> list = getSqlSession().selectList(CLASS_NAME_Task + ".queryBaseTask", majorId);
+			for (Task task : list) {
+				SignIn signIn = new SignIn();
+				signIn.setSignNumber(studentNumber);
+				signIn.setTaskId(task.getTaskId());
+				String taskDate = task.getDate();
+				signIn.setDate(taskDate);
+				signIn.setMajor(majorName);
+				Map<String, Object> params = new HashMap<String, Object>();
+		        params.put("majorId", majorId);
+		        params.put("taskDate", taskDate);
+				int unSignNumber = getSqlSession().selectOne(CLASS_NAME_User + ".getUnSignNumbers", params);
+				signIn.setUnSignNumber(unSignNumber);
+				signInList.add(signIn);
+			}
+		}
+		return signInList;
+	}
+
+	@Override
+	public List<SignIn> getSignUpload(String majorName, String date) {
+		Map<String, Object> params = new HashMap<String, Object>();
+        params.put("majorName", majorName);
+        params.put("taskDate", date);
+        return getSqlSession().selectList(CLASS_NAME_SignIn + ".getSignUpload", params);
+	}
+
+	@Override
+	public List<SignIn> signInDetail(String majorName, String date) {
+		int majorId = getSqlSession().selectOne(CLASS_NAME_Major + ".getMajorId", majorName);
+		Map<String, Object> params = new HashMap<String, Object>();
+        params.put("majorId", majorId);
+        params.put("taskDate", date);
+		return getSqlSession().selectList(CLASS_NAME_SignIn + ".getSignUpload", params);
 	}
 }

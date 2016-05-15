@@ -7,6 +7,7 @@ import com.hpu.fyx.dao.TeacherDao;
 import com.hpu.fyx.model.Major;
 import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
+import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
 import com.hpu.fyx.service.TeacherService;
 import com.hpu.fyx.utils.StringUtil;
@@ -82,5 +83,43 @@ public class TeacherServiceImpl implements TeacherService {
 		String[] questionIds = StringUtil.randomCommon(array, questionNumber);
 		task.setQuestionIds(questionIds);
 		teacherDao.insertTask(task);
+	}
+
+	@Override
+	public void deleteTask(String[] taskIds) {
+		teacherDao.deleteTask(taskIds);
+	}
+
+	@Override
+	public Task queryEditTask(int taskId) {
+		List<Task> list= teacherDao.queryEditTask(taskId);
+		Task task = new Task();
+		
+		String[] questionIds = new String[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			questionIds[i] = String.valueOf(list.get(i).getQuestionId());
+		}
+		task = list.get(0);
+		task.setQuestionIds(questionIds);
+		task.setTaskId(taskId);
+		return task;
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		String[] taskIds = new String[1];
+		taskIds[0] = String.valueOf(task.getTaskId());
+		teacherDao.deleteTask(taskIds);
+		teacherDao.updateTask(task);
+	}
+
+	@Override
+	public List<SignIn> querySignInList(int userId) {
+		return teacherDao.querySignInList(userId);
+	}
+
+	@Override
+	public List<SignIn> signInDetail(String majorName, String date) {
+		return teacherDao.signInDetail(majorName, date);
 	}
 }
