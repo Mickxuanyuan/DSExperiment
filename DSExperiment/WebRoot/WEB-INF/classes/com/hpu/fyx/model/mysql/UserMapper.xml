@@ -53,4 +53,28 @@
             SELECT count(*) FROM student JOIN (SELECT student_Id, sign_in_datetime FROM sign_in) AS newSign ON newSign.student_id = student.id where student.major_id = #{majorId} AND newSign.sign_in_datetime like concat(#{taskDate}, '%');
         ]]>
     </select>
+    
+     <select id="getStudenListByMajorId" parameterType="int" resultMap="studentMap">
+        <![CDATA[
+            SELECT id, s_id, username FROM student WHERE major_id = #{majorId} order by s_id
+        ]]>
+    </select>
+    
+    <update id="updatePassword" parameterType="map">
+        <![CDATA[
+            update teacher set password = #{password} where t_id = #{userId}
+        ]]>
+    </update>
+    
+     <update id="updatePasswordS" parameterType="map">
+        <![CDATA[
+            update student set password = #{password} where s_id = #{userId}
+        ]]>
+    </update>
+    
+     <select id="getTeacherList" resultMap="teacherMap">
+        <![CDATA[
+            SELECT * FROM teacher
+        ]]>
+    </select>
 </mapper>

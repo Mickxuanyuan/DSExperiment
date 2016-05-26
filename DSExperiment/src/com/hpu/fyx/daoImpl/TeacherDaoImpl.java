@@ -183,4 +183,27 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
         params.put("taskDate", date);
 		return getSqlSession().selectList(CLASS_NAME_SignIn + ".getSignUpload", params);
 	}
+
+	@Override
+	public List<User> signInTotal(int majorId, String startDate, String endDate) {
+		List<User> studentList = getSqlSession().selectList(CLASS_NAME_User + ".getStudenListByMajorId", majorId);
+		List<User> userList = new ArrayList<User>();
+		for (User user : studentList) {
+			Map<String, Object> params = new HashMap<String, Object>();
+	        params.put("userId", user.getId());
+	        params.put("majorId", majorId);
+	        params.put("startDate", startDate);
+	        params.put("endDate", endDate);
+			int signTotal = getSqlSession().selectOne(CLASS_NAME_Task + ".getSignTotal", params);
+			int hadSignTotal = getSqlSession().selectOne(CLASS_NAME_Task + ".getHadSign", params);
+			int hadUpload = getSqlSession().selectOne(CLASS_NAME_Task + ".getHadUpload", params);
+			int hadNotSignTotal = signTotal - hadSignTotal;
+			int hadNotUpload = signTotal - hadUpload;
+			user.setHadNotSignTotal(hadNotSignTotal);
+			user.setHadNotUpload(hadNotUpload);
+			user.setSignTotal(hadSignTotal);
+			userList.add(user);
+		}
+		return userList;
+	}
 }

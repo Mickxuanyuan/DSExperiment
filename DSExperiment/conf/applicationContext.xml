@@ -29,7 +29,6 @@
         <property name="jdbcUrl" value="${jdbc.url}"></property>
         <property name="user" value="${jdbc.user}"></property>
         <property name="password" value="${jdbc.password}"></property>
-        
         <property name="maxPoolSize" value="20" />
         <property name="minPoolSize" value="5" />
         <property name="acquireIncrement" value="3" />
@@ -52,18 +51,12 @@
     
     <bean id="userDao" class="com.hpu.fyx.daoImpl.UserDaoImpl" parent="baseDao" />
     <bean id="studentDao" class="com.hpu.fyx.daoImpl.StudentDaoImpl" parent="baseDao"/>
-     <bean id="teacherDao" class="com.hpu.fyx.daoImpl.TeacherDaoImpl" parent="baseDao"/>
-   <!--  <bean id="bookDao" class="com.zhengmenbb.book.dao.mybatis.BookDaoImpl" parent="baseDao"/>
-    <bean id="userDao" class="com.zhengmenbb.book.dao.mybatis.UserDaoImpl" parent="baseDao" />
-    <bean id="categoryDao" class="com.zhengmenbb.book.dao.mybatis.CategoryDaoImpl" parent="baseDao" />
-    <bean id="bookCategoryDao" class="com.zhengmenbb.book.dao.mybatis.BookCategoryDaoImpl" parent="baseDao" />
-      -->
+    <bean id="teacherDao" class="com.hpu.fyx.daoImpl.TeacherDaoImpl" parent="baseDao"/>
+    <bean id="adminDao" class="com.hpu.fyx.daoImpl.AdminDaoImpl" parent="baseDao"/>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-    
-    <!--  <bean id="logMethodTimeAdvice" class="com.zhengmenbb.book.service.impl.LogMethodTimeAspect"/> -->
     
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -84,6 +77,10 @@
        <property name="userDao" ref="userDao" />
     </bean>
     
+     <bean id="adminService" class="com.hpu.fyx.serviceImpl.AdminServiceImpl" >
+       <property name="adminDao" ref="adminDao" />
+    </bean>
+    
      <bean id="studentService" class="com.hpu.fyx.serviceImpl.StudentServiceImpl" >
        <property name="studentDao" ref="studentDao" />
     </bean>
@@ -96,6 +93,10 @@
        <property name="userService" ref="userService" />
     </bean>
     
+    <bean id="adminController" class="com.hpu.fyx.controller.AdminController" >
+       <property name="adminService" ref="adminService" />
+    </bean>
+    
     <bean id="studentController" class="com.hpu.fyx.controller.StudentController" >
        <property name="studentService" ref="studentService" />
     </bean>
@@ -105,39 +106,4 @@
     </bean>
     
     <bean class="com.hpu.fyx.utils.SpringUtil"></bean>
-   <!--  <bean id="bookService" class="com.zhengmenbb.book.service.impl.BookServiceImpl" >
-       <property name="bookDao" ref="bookDao" />
-       <property name="bookCategoryDao" ref="bookCategoryDao" />
-    </bean>
-    
-    <bean id="userService" class="com.zhengmenbb.book.service.impl.UserServiceImpl" >
-       <property name="userDao" ref="userDao" />
-    </bean>
-    
-    <bean id="categoryService" class="com.zhengmenbb.book.service.impl.CategoryServiceImpl" >
-       <property name="categoryDao" ref="categoryDao" />
-    </bean>
-    
-     <bean id="bookController" class="com.zhengmenbb.book.controller.BookController" >
-       <property name="bookService" ref="bookService" />
-       <property name="categoryService" ref="categoryService" />
-    </bean>
-    
-   <bean id="userController" class="com.zhengmenbb.book.controller.UserController" >
-       <property name="userService" ref="userService" />
-    </bean>
-    
-    <bean class="com.zhengmenbb.book.util.SpringUtil"></bean>
-    
-    
-    <bean id="userInfoBlock" class="com.zhengmenbb.book.block.UserInfoBlock" >
-       <property name="template" value="/WEB-INF/jsp/user/user_info.jsp" />
-    </bean>
-    
-    <bean id="bookStatusBlock" class="com.zhengmenbb.book.block.BookStatusBlock" >
-       <property name="template" value="/WEB-INF/jsp/book/book_status.jsp" />
-       <property name="bookService" ref="bookService"></property>
-    </bean>
-     -->
-    
 </beans>

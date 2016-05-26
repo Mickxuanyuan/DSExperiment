@@ -9,6 +9,7 @@ import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
 import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
+import com.hpu.fyx.model.User;
 import com.hpu.fyx.service.TeacherService;
 import com.hpu.fyx.utils.StringUtil;
 
@@ -121,5 +122,10 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public List<SignIn> signInDetail(String majorName, String date) {
 		return teacherDao.signInDetail(majorName, date);
+	}
+
+	@Override
+	public List<User> signInTotal(int majorId, String startDate, String endDate) {
+		return teacherDao.signInTotal(majorId, startDate, endDate);
 	}
 }

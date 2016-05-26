@@ -32,6 +32,10 @@ function submitEdit(id) {
 	window.location.href = turnUrl;
 }
 	
+function logout() {
+		var turnUrl = "<%=PathUtil.getFullPath("user/logout")%>";
+		window.location.href = turnUrl;
+}
 </script>
 
 </head>
@@ -40,7 +44,7 @@ function submitEdit(id) {
 	
 		<div class="header">
 			<a class="header_title">数据结构上机系统</a>
-			<label class="header_logout">注销</label>
+			<label class="header_logout" style="cursor: pointer;" onclick="logout()">注销</label>
 			<label class="header_login_name">${user.username}</label>
 			<img class="header_img" src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>

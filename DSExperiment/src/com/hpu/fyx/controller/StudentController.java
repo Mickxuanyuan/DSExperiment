@@ -27,7 +27,8 @@ public class StudentController extends BaseController{
 	private static final String QUESTION_LIST_JSP = "student/student_question_list";
 	private static final String DAILY_TASK_JSP = "student/student_task";
 	private static final String DAILY_TASK_PAGE = "student/dailyTask";
-	
+	private static final String DAILY_STUDENT_PERSONAL_INFO_JSP = "student/student_personal_info";
+	private static final String CHANGE_PASSWORD_JSP = "student/student_change_password";
 	
 	@Autowired
     private StudentService studentService;
@@ -81,6 +82,15 @@ public class StudentController extends BaseController{
 	        modelAndView.setView(this.getRedirectView(DAILY_TASK_PAGE));
 	        return modelAndView;
 	    }
+	 	
+	 	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	    public ModelAndView info() {
+	        User user = this.getUser();
+	        ModelAndView modelAndView = new ModelAndView();
+	        modelAndView.addObject("user", user);
+	        modelAndView.setViewName(DAILY_STUDENT_PERSONAL_INFO_JSP);
+	        return modelAndView;
+	    }
 	 
 	 	@RequestMapping(value = "/uploadTask", method = RequestMethod.POST)
 	 	public ModelAndView upload(@RequestParam(value = "taskFile", required = false) MultipartFile file, HttpServletRequest request) {  
@@ -108,5 +118,12 @@ public class StudentController extends BaseController{
 	        return modelAndView;
 	    }  
 	 	
-	 	
+	 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	    public ModelAndView changePassword() {
+			 User user = this.getUser();
+			 ModelAndView modelAndView = new ModelAndView();
+			 modelAndView.addObject("user", user);
+	         modelAndView.setViewName(CHANGE_PASSWORD_JSP);
+	         return modelAndView;
+	    }
 }

@@ -130,6 +130,15 @@
 		window.location.href = turnUrl;
 	}
 	
+	function logout() {
+		var turnUrl = "<%=PathUtil.getFullPath("user/logout")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function runToPersonalInfo() {
+		var turnUrl = "<%=PathUtil.getFullPath("student/info")%>";
+		window.location.href = turnUrl;
+	}
 </script>
 </head>
 <body style="margin:0px;height: 760px;width:100%">
@@ -137,18 +146,15 @@
 	
 		<div class="header">
 			<a class="header_title">数据结构上机系统</a>
-			 <a href="<%=PathUtil.getFullPath("student/signIn")%>" onclick="alert('签到成功')" class="header_sign_in" style="right: 20px; top: 20px; position: absolute;font-family:Arial; font-size:14px; color:#FFFFFF" >
-			 	<img src="<%=PropertyUtil.getStaticUrl()%>/images/sign_in.png"/>
-			 </a>
-			<label class="header_logout">注销</label>
+			<label class="header_logout" style="cursor: pointer;" onclick="logout()">注销</label>
 			<label class="header_login_name">${user.username}</label>
 			<img class="header_img" src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>
 		
 		<div class="breadcrumb">
-			<div class="breadcrumb_question" style="background:#D2DAE3;" onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" onclick="runToDailyTask()">今日任务</div>
-			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
+			<div class="breadcrumb_question" style="background:#D2DAE3;cursor: pointer;" onclick="runToQuestionList()">问题列表</div>
+			<div class="breadcrumb_task" style="cursor: pointer;" onclick="runToDailyTask()">今日任务</div>
+			<div class="breadcrumb_home" style="cursor: pointer;" onclick="runToPersonalInfo()">个人主页</div>
 		</div>
 		
 		<div class="center_main">
@@ -212,7 +218,7 @@
 						</ul>
 					</div>
 					
-					<div class="div_main_center_two">
+					<div class="div_main_center_two" style="overflow: auto">
 					<%int i = 1; %>
 					<c:forEach items="${pagination.record}" var="o">
 						<div class="div_main_center_two1">

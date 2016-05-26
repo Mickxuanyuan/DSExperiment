@@ -26,4 +26,10 @@
             SELECT id FROM major WHERE name = #{majorName};
         ]]>
     </select>
+    
+    <select id="getMajorAllList" resultMap="majorMap">
+        <![CDATA[
+            SELECT name FROM major;
+        ]]>
+    </select>
 </mapper>

@@ -9,6 +9,9 @@ public class User {
 	private String email;
 	private Integer userRole;
 	private String majorName;
+	private int signTotal;
+	private int hadNotSignTotal;
+	private int hadNotUpload;
 	
 	public Integer getId() {
 		return id;
@@ -72,6 +75,30 @@ public class User {
 	
 	public void setMajorName(String majorName) {
 		this.majorName = majorName;
+	}
+	
+	public int getSignTotal() {
+		return signTotal;
+	}
+
+	public void setSignTotal(int signTotal) {
+		this.signTotal = signTotal;
+	}
+
+	public int getHadNotSignTotal() {
+		return hadNotSignTotal;
+	}
+
+	public void setHadNotSignTotal(int hadNotSignTotal) {
+		this.hadNotSignTotal = hadNotSignTotal;
+	}
+
+	public int getHadNotUpload() {
+		return hadNotUpload;
+	}
+
+	public void setHadNotUpload(int hadNotUpload) {
+		this.hadNotUpload = hadNotUpload;
 	}
 
 	@Override

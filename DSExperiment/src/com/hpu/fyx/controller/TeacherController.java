@@ -42,6 +42,9 @@ public class TeacherController extends BaseController{
 	private static final String QUESTION_EDIT_TASK_JSP = "teacher/teacher_edit_task";
 	private static final String QUESTION_SIGN_IN_JSP = "teacher/teacher_sign_in_list";
 	private static final String QUESTION_SIGN_IN_DETAIL_JSP = "teacher/teacher_sign_in_detail_list";
+	private static final String DAILY_TEACHER_PERSONAL_INFO_JSP = "teacher/teacher_personal_info";
+	private static final String QUESTION_SIGN_IN_TOTAL_JSP = "teacher/teacher_sign_in_total_list";
+	private static final String CHANGE_PASSWORD_JSP = "teacher/teacher_change_password";
 	
 	@Autowired
     private TeacherService teacherService;
@@ -85,6 +88,15 @@ public class TeacherController extends BaseController{
         modelAndView.addObject("user", user);
         modelAndView.setViewName(QUESTION_SHOW_JSP);
         
+        return modelAndView;
+    }
+	
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+    public ModelAndView info() {
+        User user = this.getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName(DAILY_TEACHER_PERSONAL_INFO_JSP);
         return modelAndView;
     }
 	
@@ -201,6 +213,7 @@ public class TeacherController extends BaseController{
         ModelAndView modelAndView = new ModelAndView();
         List<Major> majorList = teacherService.getMajorList(user.getId());
         modelAndView.addObject("majorList", majorList);
+        modelAndView.addObject("user", user);
         modelAndView.setViewName(QUESTION_RANDOM_TASK_JSP);
         return modelAndView;
     }
@@ -306,6 +319,38 @@ public class TeacherController extends BaseController{
 		 modelAndView.addObject("date", date);
 		 modelAndView.addObject("signInList", signInDeailList);
          modelAndView.setViewName(QUESTION_SIGN_IN_DETAIL_JSP);
+         return modelAndView;
+    }
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+    public ModelAndView changePassword() {
+		 User user = this.getUser();
+		 ModelAndView modelAndView = new ModelAndView();
+		 modelAndView.addObject("user", user);
+         modelAndView.setViewName(CHANGE_PASSWORD_JSP);
+         return modelAndView;
+    }
+	
+	@RequestMapping(value = "/signInTotal", method = RequestMethod.GET)
+    public ModelAndView signInTotal(
+    								@RequestParam(value = "majorId", defaultValue = "0") int majorId,
+    								@RequestParam(value = "startDate", defaultValue = "") String startDate,
+    								@RequestParam(value = "endDate", defaultValue = "") String endDate
+    								) {
+		 User user = this.getUser();
+		 ModelAndView modelAndView = new ModelAndView();
+		 List<Major> majorList = teacherService.getMajorList(user.getId());
+		 if (majorId == 0) {
+			 majorId = majorList.get(0).getId();
+		 }
+		 List<User> studentList = teacherService.signInTotal(majorId, startDate, endDate);
+		 modelAndView.addObject("majorList", majorList);
+		 modelAndView.addObject("studentList", studentList);
+		 modelAndView.addObject("user", user);
+		 modelAndView.addObject("majorId", majorId);
+		 modelAndView.addObject("startDate", startDate);
+		 modelAndView.addObject("endDate", endDate);
+         modelAndView.setViewName(QUESTION_SIGN_IN_TOTAL_JSP);
          return modelAndView;
     }
 	

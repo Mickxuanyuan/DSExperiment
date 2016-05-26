@@ -100,12 +100,27 @@
 		 var addTaskFormObj = document.getElementById("addTaskForm");
 		 addTaskFormObj.submit();
 	}
+	
+	function runToSignInDetail() {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/signIn")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function logout() {
+		var turnUrl = "<%=PathUtil.getFullPath("user/logout")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function runToTotal () {
+		var turnUrl = "<%=PathUtil.getFullPath("teacher/signInTotal")%>";
+		window.location.href = turnUrl;
+	}
 </script>
 </head>
 <body style="margin:0px;height: 760px;width:100%">
 	<div class="warpper">
 		<div class="header">
-			<a class="header_title">数据结构上机系统</a> <label class="header_logout">注销</label>
+			<a class="header_title">数据结构上机系统</a> <label class="header_logout"  style="cursor: pointer;" onclick="logout()">注销</label>
 			<label class="header_login_name">${user.username}</label> <img
 				class="header_img"
 				src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
@@ -113,10 +128,11 @@
 
 		<div class="breadcrumb">
 			<div class="breadcrumb_question"
-				onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" style="background:#D2DAE3;" onclick="runToDailyTask()">今日任务</div>
-			<div class="breadcrumb_sign_in">签到详情</div>
-			<div class="breadcrumb_home" onclick="runToPersonalHome()">个人主页</div>
+				onclick="runToQuestionList()" style="cursor: pointer;">问题列表</div>
+			<div class="breadcrumb_task" style="background:#D2DAE3;cursor: pointer;" onclick="runToDailyTask()">今日任务</div>
+			<div class="breadcrumb_sign_in" style="cursor: pointer;" onclick="runToSignInDetail()">签到详情</div>
+			<div class="breadcrumb_total" onclick="runToTotal()" style="cursor: pointer;">签到总结</div>
+			<div class="breadcrumb_home" style="cursor: pointer;" onclick="runToPersonalHome()">个人主页</div>
 		</div>
 
 		<div class="center_main">

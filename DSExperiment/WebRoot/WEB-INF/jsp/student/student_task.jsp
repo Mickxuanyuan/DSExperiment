@@ -29,21 +29,31 @@ function submitForm() {
 	 var uploadTaskFormObj = document.getElementById("uploadTaskForm");
 	 uploadTaskFormObj.submit();
 }
+
+function logout() {
+	var turnUrl = "<%=PathUtil.getFullPath("user/logout")%>";
+	window.location.href = turnUrl;
+}
+
+function runToPersonalInfo() {
+	var turnUrl = "<%=PathUtil.getFullPath("student/info")%>";
+	window.location.href = turnUrl;
+}
 </script>
 </head>
 <body style="margin:0px;height: 760px;width:100%">
 	<div class="warpper">
 		<div class="header">
-			<a class="header_title">数据结构上机系统</a> <label class="header_logout">注销</label>
+			<a class="header_title">数据结构上机系统</a> <label class="header_logout"  style="cursor: pointer;" onclick="logout()">注销</label>
 			<label class="header_login_name">${user.username}</label> <img
 				class="header_img"
 				src="<%=PropertyUtil.getStaticUrl()%>/images/ICN_Web_PersonalInformation_25x25.png"></img>
 		</div>
 
 		<div class="breadcrumb">
-			<div class="breadcrumb_question" onclick="runToQuestionList()">问题列表</div>
-			<div class="breadcrumb_task" onclick="runToDailyTask()" style="background:#D2DAE3">今日任务</div>
-			<div class="breadcrumb_home">个人主页</div>
+			<div class="breadcrumb_question" style="cursor: pointer;" onclick="runToQuestionList()">问题列表</div>
+			<div class="breadcrumb_task"  style="cursor: pointer;background:#D2DAE3;" onclick="runToDailyTask()">今日任务</div>
+			<div class="breadcrumb_home" style="cursor: pointer;" onclick="runToPersonalInfo()">个人主页</div>
 		</div>
 
 		<div class="center_main">

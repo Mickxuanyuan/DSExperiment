@@ -7,6 +7,7 @@ import com.hpu.fyx.model.Pagination;
 import com.hpu.fyx.model.Question;
 import com.hpu.fyx.model.SignIn;
 import com.hpu.fyx.model.Task;
+import com.hpu.fyx.model.User;
 
 public interface TeacherDao {
 	public List<Question> queryQuestionList(Pagination pagination);
@@ -42,4 +43,6 @@ public interface TeacherDao {
 	public List<SignIn> getSignUpload(String majorName, String date);
 	
 	public List<SignIn> signInDetail(String majorName, String date);
+	
+	public List<User> signInTotal(int majorId, String startDate, String endDate);
 }

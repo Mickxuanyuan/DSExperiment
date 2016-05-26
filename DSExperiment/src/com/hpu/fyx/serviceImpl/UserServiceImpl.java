@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         ParameterException parameterException = new ParameterException();
 
         if (StringUtil.isEmpty(userId)) {
-            parameterException.addErrorField("userName", "请输入用户名");
+            parameterException.addErrorField("userName", "请输入学工号");
         }
         
         if (StringUtil.isEmpty(password)) {
@@ -36,16 +36,21 @@ public class UserServiceImpl implements UserService {
         int inputUsernameStatus = StringUtil.judgeUserNameAndPassword(userId);
         
         if (inputUsernameStatus == 1) {
-        	throw new ServiceException(1000, "用户名格式不存在");
+        	throw new ServiceException(1000, "学工号格式不存在");
         } else {
         	user = userDao.getUserByName(userId, password, inputUsernameStatus);
         }
 
         if (user == null) {
-            throw new ServiceException(1001, "用户名或密码不存在");
+            throw new ServiceException(1001, "学工号或密码不正确");
         }
 
         user.setUserRole(inputUsernameStatus);
         return user;
     }
+
+	@Override
+	public void updatePassword(String username, String password, String userRole) {
+		userDao.updatePassword(username, password, userRole);
+	}
 }

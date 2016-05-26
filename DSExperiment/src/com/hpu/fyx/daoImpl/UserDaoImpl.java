@@ -26,4 +26,17 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
     		return getSqlSession().selectOne(CLASS_NAME + SQL_ID_USER_GET_TEACHER_BY_ID, params);
     	}
     }
+
+	@Override
+	public void updatePassword(String username, String password, String userRole) {
+		 Map<String, Object> params = new HashMap<String, Object>();
+         params.put("userId", username);
+         params.put("password", password);
+         params.put("userRole", userRole);
+         if ("teacher".equals(userRole)) {
+        	 getSqlSession().selectOne(CLASS_NAME + ".updatePassword", params);
+         } else {
+        	 getSqlSession().selectOne(CLASS_NAME + ".updatePasswordS", params);
+         }
+	}
 }
