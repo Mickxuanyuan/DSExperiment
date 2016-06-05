@@ -108,10 +108,15 @@ public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao {
 
 	@Override
 	public void deleteTask(String[] taskIds) {
-		for (String id : taskIds) {
-			int taskId = Integer.parseInt(id);
-			getSqlSession().delete(CLASS_NAME_Task + ".deleteTaskDetail", taskId);
-			getSqlSession().delete(CLASS_NAME_Task + ".deleteTask", taskId);
+		try {
+			for (String id : taskIds) {
+				int taskId = Integer.parseInt(id);
+				getSqlSession().delete(CLASS_NAME_Task + ".deleteTaskDetail", taskId);
+				getSqlSession().delete(CLASS_NAME_Task + ".deleteTask", taskId);
+			}
+		} catch (Exception e) {
+			System.out.println("有个异常在这哈哈哈哈");
+			e.printStackTrace();
 		}
 	}
 

@@ -29,7 +29,31 @@
     
     <select id="getMajorAllList" resultMap="majorMap">
         <![CDATA[
-            SELECT name FROM major;
+            SELECT * FROM major;
         ]]>
     </select>
+    
+    <select id="getMajorIdsByTeacherId" resultMap="majorMap" parameterType="int">
+        <![CDATA[
+            SELECT major_id as id FROM teacher_major where teacher_id = #{teacherId};
+        ]]>
+    </select>
+    
+      <insert id="addMajor" parameterType="string">
+        <![CDATA[
+            INSERT INTO major(name) VALUES (#{majorName});
+        ]]>
+    </insert>
+    
+     <update id="updateMajor" parameterType="com.hpu.fyx.model.Major">
+        <![CDATA[
+            update major set name = #{name} where id = #{id}
+        ]]>
+    </update>
+    
+    <delete id="deleteMajor" parameterType="int">
+        <![CDATA[
+            delete from major where id = #{id}
+        ]]>
+    </delete>
 </mapper>

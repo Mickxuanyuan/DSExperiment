@@ -77,4 +77,73 @@
             SELECT * FROM teacher
         ]]>
     </select>
+    
+     <select id="getStudentList" parameterType="int" resultMap="studentMap">
+        <![CDATA[
+            SELECT student.id, student.s_Id, student.username, student.telephone, student.email, newMajor.name AS major_name FROM student
+            	JOIN (SELECT id, name from major) AS newMajor
+            	ON student.major_id = newMajor.id
+            	WHERE student.major_id = #{majorId};
+        ]]>
+    </select>
+    
+     <insert id="addTeacher" useGeneratedKeys="true" keyProperty="id" parameterType="com.hpu.fyx.model.User">
+        <![CDATA[
+            INSERT INTO teacher(id, t_id, username, telephone, email) VALUES (#{id}, #{userId}, #{username}, #{telephone}, #{email});
+        ]]>
+    </insert>
+    
+    <insert id="addTeacherMajor" parameterType="map">
+        <![CDATA[
+            INSERT INTO teacher_major(teacher_id, major_id) VALUES (#{teacherId}, #{majorId});
+        ]]>
+    </insert>
+    
+    <select id="getTeacherOnlyById" parameterType="int" resultMap="teacherMap">
+        <![CDATA[
+            SELECT * FROM teacher WHERE id = #{userId};
+        ]]>
+    </select>
+    
+    <update id="updateTeacherinfo" parameterType="com.hpu.fyx.model.User">
+        <![CDATA[
+            update teacher set t_id = #{userId}, username = #{username}, telephone = #{telephone}, email = #{email} where id = #{id}
+        ]]>
+    </update>
+    
+    <delete id="deleteTeacherMajor" parameterType="int">
+        <![CDATA[
+            delete from teacher_major where teacher_id = #{id}
+        ]]>
+    </delete>
+    
+    <delete id="deleteTeacher" parameterType="int">
+        <![CDATA[
+            delete from teacher where id = #{id}
+        ]]>
+    </delete>
+    
+     <select id="getStudentOnlyById" parameterType="int" resultMap="studentMap">
+        <![CDATA[
+            SELECT * FROM student WHERE id = #{userId};
+        ]]>
+    </select>
+    
+     <update id="updateStudentinfo" parameterType="com.hpu.fyx.model.User">
+        <![CDATA[
+            update student set s_id = #{userId}, username = #{username}, telephone = #{telephone}, email = #{email} where id = #{id}
+        ]]>
+    </update>
+    
+     <insert id="addStudent" parameterType="com.hpu.fyx.model.User">
+        <![CDATA[
+            INSERT INTO student(s_id, major_id, username, telephone, email) VALUES (#{userId}, #{majorId},#{username}, #{telephone}, #{email});
+        ]]>
+    </insert>
+    
+     <delete id="deleteStudent" parameterType="int">
+        <![CDATA[
+            delete from student where id = #{id}
+        ]]>
+    </delete>
 </mapper>

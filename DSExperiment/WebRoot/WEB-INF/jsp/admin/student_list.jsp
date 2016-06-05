@@ -23,6 +23,36 @@
 		var turnUrl = "<%=PathUtil.getFullPath("admin/studentList")%>";
 		window.location.href = turnUrl;
 	}
+	
+	function runToMajorList() {
+		var turnUrl = "<%=PathUtil.getFullPath("admin/majorList")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function runToTeacherList() {
+		var turnUrl = "<%=PathUtil.getFullPath("admin/teacherList")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function submitEdit(id) {
+		var turnUrl = "<%=PathUtil.getFullPath("admin/editStudentJsp")%>" + "?studentId=" + id;
+		window.location.href = turnUrl;
+	}
+	
+	function initialColor(id) {
+		var turnUrl = "<%=PathUtil.getFullPath("admin/studentList")%>" + "?majorId=" + id;
+		window.location.href = turnUrl;
+	}
+	
+	function addStudent() {
+		var turnUrl = "<%=PathUtil.getFullPath("admin/addStudentJsp")%>";
+		window.location.href = turnUrl;
+	}
+	
+	function deleteQuestions() {
+		var deleteFormObj = document.getElementById("deleteForm");
+		deleteFormObj.submit();
+	}
 </script>
 </head>
 <body style="margin:0px;height: 760px;width:100%">
@@ -35,46 +65,53 @@
 		</div>
 
 		<div class="breadcrumb">
-			<div class="breadcrumb_question" style="background:#D2DAE3;cursor: pointer;"
+			<div class="breadcrumb_question" style="cursor: pointer;"
 				onclick="runToTeacherList()" >老师管理</div>
-			<div class="breadcrumb_task" onclick="runToStudentList()" style="cursor: pointer;">学生管理</div>
-			<div class="breadcrumb_sign_in" style="cursor: pointer;" onclick="runToClassList()">班级管理</div>
+			<div class="breadcrumb_task" onclick="runToStudentList()" style="background:#D2DAE3;cursor: pointer;">学生管理</div>
+			<div class="breadcrumb_sign_in"  onclick="runToMajorList()" style="cursor: pointer;" onclick="runToClassList()">班级管理</div>
 		</div>
 
 		<div class="center_main">
 			<div class="main_left">
 				<hr class="main_hr"
 					style="width:180px; position:absolute; top:20px;margin:0px" />
-				<div class="main_left_elist" onclick="addQuestion()"
-					style="cursor: pointer;font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #000000;position: absolute;top:21px">添加老师</div>
-				<hr style="width:180px; position:absolute; top:50px;margin:0px" />
-				<div class="1" onclick="initialColor('1')" style="cursor: pointer;font-size:14px; width:180px; text-align:center; height:30px; line-height:30px;background:#2E4358;font-family:Arial;color: #ffffff;position: absolute;top:51px">老师列表</div>
-				<hr style="width:180px; position:absolute; top:80px;margin:0px" />
+				<div class="main_left_elist" onclick="addStudent()"
+					style="cursor: pointer;font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #000000;position: absolute;top:21px">添加学生</div>
+				<hr class="main_hr"
+					style="width:180px; position:absolute; top:50px;margin:0px" />
+					<%int j = 0; %>
+				<c:forEach items="${majorList}" var="m">
+					<c:if test="${m.id != majorId}">
+					<div class='${m.id}' onclick="initialColor('${m.id}')"
+				    style="cursor: pointer;font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#ffffff;font-family:Arial;color: #000000;position: absolute;top:<%=51+30*j%>px"
+				    >${m.name }</div>
+				    </c:if>
+				    <c:if test="${m.id == majorId}">
+					<div class='${m.id}' onclick="initialColor('${m.id}')"
+				    style="cursor: pointer;font-size:18px; width:180px; text-align:center; height:30px; line-height:30px;background:#2E4358;font-family:Arial;color: #ffffff;position: absolute;top:<%=51+30*j%>px">${m.name }</div>
+				    </c:if>
+				    <hr style="width:180px; position:absolute; top:<%=(80+j*30) %>px;margin:0px" />
+				    <%j++; %>
+				</c:forEach>
 			</div>
 
 			<hr class="main_hr2" />
 
 			<div class="main_right">
-				<div>
-					<input class="main_right_search" id="searchContentInput"
-						name="searchContentInput" placeholder="Please input the keyword" />
-					<img class="search_img" onclick="submitSearchContent()" />
-				</div>
-
 				<div class="div_main_center">
 
 					<div class="div_main_center_one">
 						<ul style="list-style:none;margin:0px">
-							<li class="div_main_center_one_li11">工号</li>
+							<li class="div_main_center_one_li11">学号</li>
 							<li class="div_main_center_one_li21">姓名</li>
 							<li class="div_main_center_one_li31">电话</li>
 							<li class="div_main_center_one_li41">编辑</li>
 						</ul>
 					</div>
-					<form action="<%=PathUtil.getFullPath("admin/deleteTeacher")%>" method="POST" id="deleteForm">
+					<form action="<%=PathUtil.getFullPath("admin/deleteStudent")%>" method="POST" id="deleteForm">
 					<div class="div_main_center_two"  style="overflow: auto">
 					<%int i = 1; %>
-					<c:forEach items="${teacherList}" var="o">
+					<c:forEach items="${studentList}" var="o">
 						<div class="div_main_center_two1">
 							<ul style="list-style:none;margin:0px;">
 								<li class="div_main_center_two_li11"><%=i++%></li>
@@ -87,6 +124,10 @@
 							</ul>
 						</div>
 					</c:forEach>
+					<div style="width: 100%;height:70px;position:absolute;">
+						<div class="delete" onclick="deleteQuestions()">删除
+					</div>
+					</div>
 					</div>
 					</form>
 				</div>

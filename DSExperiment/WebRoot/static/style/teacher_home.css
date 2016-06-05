@@ -239,57 +239,117 @@
 }
 
 .main_center {
-	width: 1309px;height:600px; position: absolute; left:20px;top:110px;background:#ffffff;border-radius: 5px;
+	width: 1309px;
+	height: 600px;
+	position: absolute;
+	left: 20px;
+	top: 110px;
+	background: #ffffff;
+	border-radius: 5px;
 }
 
 .main_center_top {
-	position: absolute; left:20px;top:10px;
+	position: absolute;
+	left: 20px;
+	top: 10px;
 }
 
 .edit_question_id_l {
-	width: 100px;height:30px;position: absolute; left:100px;top:0px;
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
 }
 
 .edit_question_id {
-	position: absolute; left:200px;top:0px;
+	position: absolute;
+	left: 200px;
+	top: 0px;
 }
 
 .center_question {
-	position: absolute; left:300px;top:100px;
+	position: absolute;
+	left: 300px;
+	top: 100px;
 }
 
 .edit_question_center_id {
-	position: absolute; left:150px;top:50px;
+	position: absolute;
+	left: 150px;
+	top: 50px;
 }
 
 .edit_question_center_title_l {
-	position: absolute; left:0px; top:100px;
+	position: absolute;
+	left: 0px;
+	top: 100px;
 }
 
 .edit_question_center_title {
-	width:173px;height:21px; position: absolute; left:150px;top:100px;
+	width: 173px;
+	height: 21px;
+	position: absolute;
+	left: 150px;
+	top: 100px;
 }
 
 .edit_question_center_discription_l {
-	position: absolute; left:0px; top:150px;
+	position: absolute;
+	left: 0px;
+	top: 150px;
 }
 
 .edit_question_center_ds {
-	width: 511px;height:280px;position: absolute; left:150px;top:150px;
+	width: 511px;
+	height: 280px;
+	position: absolute;
+	left: 150px;
+	top: 150px;
 }
 
 .button_sure {
-	position:absolute; left:50px; top:470px;width: 160px;height: 30px;font-size: 15px;text-align:center; height:30px; line-height:30px;color: #ffffff;background-color: #5394CB;border-radius: 3px;cursor: pointer;
+	position: absolute;
+	left: 50px;
+	top: 470px;
+	width: 160px;
+	height: 30px;
+	font-size: 15px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	color: #ffffff;
+	background-color: #5394CB;
+	border-radius: 3px;
+	cursor: pointer;
 }
 
 .button_cancel {
-	position:absolute; left:300px; top:470px;width: 160px;height: 30px;font-size: 15px;text-align:center; height:30px; line-height:30px;color: #ffffff;background-color: #5394CB;border-radius: 3px;cursor: pointer;
+	position: absolute;
+	left: 300px;
+	top: 470px;
+	width: 160px;
+	height: 30px;
+	font-size: 15px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	color: #ffffff;
+	background-color: #5394CB;
+	border-radius: 3px;
+	cursor: pointer;
 }
 
 .edit_question_center_id_l {
-	position: absolute; left:0px; top:50px;
+	position: absolute;
+	left: 0px;
+	top: 50px;
 }
 
 .chapter_select {
-	width:173px;height:21px;position: absolute; left:150px;top:0px;
+	width: 173px;
+	height: 21px;
+	position: absolute;
+	left: 150px;
+	top: 0px;
 }

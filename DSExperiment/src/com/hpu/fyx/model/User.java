@@ -9,9 +9,11 @@ public class User {
 	private String email;
 	private Integer userRole;
 	private String majorName;
+	private int majorId;
 	private int signTotal;
 	private int hadNotSignTotal;
 	private int hadNotUpload;
+	private int[] majorIds;
 	
 	public Integer getId() {
 		return id;
@@ -99,6 +101,22 @@ public class User {
 
 	public void setHadNotUpload(int hadNotUpload) {
 		this.hadNotUpload = hadNotUpload;
+	}
+
+	public int[] getMajorIds() {
+		return majorIds;
+	}
+
+	public void setMajorIds(int[] majorIds) {
+		this.majorIds = majorIds;
+	}
+
+	public int getMajorId() {
+		return majorId;
+	}
+
+	public void setMajorId(int majorId) {
+		this.majorId = majorId;
 	}
 
 	@Override

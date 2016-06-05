@@ -71,13 +71,13 @@
     
      <select id="getHadSign" resultType="int"  parameterType="map">
         <![CDATA[
-            SELECT count(*) FROM sign_in WHERE student_id = #{studentId} AND sign_in_datetime between #{startDate} and #{endDate};
+            SELECT count(*) FROM sign_in WHERE student_id = #{userId} AND sign_in_datetime between #{startDate} and #{endDate};
         ]]>
     </select>
     
     <select id="getHadUpload" resultType="int"  parameterType="map">
         <![CDATA[
-            SELECT count(*) FROM sign_in WHERE student_id = #{studentId} AND upload_time between #{startDate} and #{endDate};
+            SELECT count(*) FROM sign_in WHERE student_id = #{userId} AND upload_time between #{startDate} and #{endDate};
         ]]>
     </select>
 </mapper>
